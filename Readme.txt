@@ -4,6 +4,11 @@ We are a team with three person Zhou Kai Wen , He Yi Ning, Shan Jia Xiang
 
 
 
-use interface to generate the midi document 
-use php to transmit the midi document 
-use phpsql to store use data
+use interface to generate the midi document
+use php to transmit the midi document
+use phpsql to store user data
+try to
+
+
+https://blog.csdn.net/fulinus/article/details/79914803
+
