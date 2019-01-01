@@ -46,4 +46,58 @@ class User {
 
 }
 
+class Score {
+
+    private $Userid = "";
+    private $LengthList ;
+    private $ChordList ;
+
+    public function getUserid(){
+        return $this->Userid;
+    }
+
+    public function getLength(){
+        return $this->LengthList;
+    }
+
+    public function getChord(){
+        return $this->ChordList ;
+    }
+
+    public function setLengthList($List){
+        $this->LengthList = $List ;
+    }
+
+    public function setChordList($List){
+        $this->ChordList = $List ;
+    }
+
+}
+
+
+class Melody {
+    private  $userid ;
+    private  $notelist  ;
+    private  $timelist ;
+    public function getUserID(){
+        return $this->userid ;
+    }
+
+    public function getNoteList(){
+        return $this->notelist ;
+    }
+
+    public function getTimeList(){
+        return $this->timelist;
+    }
+
+    public function setNoteList($list){
+        $this->notelist = $list;
+    }
+
+    public function setTimeList($list){
+        $this->timelist = $list;
+    }
+
+}
 ?>
