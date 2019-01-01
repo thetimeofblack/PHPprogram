@@ -1,0 +1,10 @@
+User id varchar(10) name varchar(10) password varchar(10)
+User-Score id varchar(10) Userid varchar(10) Scoreid varchar(10)
+user-melody id varchar(10) userid varchar(10) melodyid varchar(10)
+Score  id varchar(10) Length varchar(10) Chord scoreid
+Melody   id varchar(10) Note  varchar(10) Length   melodyid
+
+create table UserScore (id int auto_increment primary key , userid varchar(20) , scoreid varchar(20) , melodyid varchar(20))
+
+create table Score ( id int auto_increment primary key , chord varchar(20) , time varchar(20))
+

@@ -2,19 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Score Editor</title>
+    <script>
+        function changeTab(){
+            if (document.getElementById("melody").style.display == "none"){
+                document.getElementById("melody").style.display = "block";
+            }else{
+                document.getElementById("melody").style.display = "none";
+            }
+            if (document.getElementById("chord").style.display == "none"){
+                document.getElementById("chord").style.display = "block";
+            }else{
+                document.getElementById("chord").style.display = "none";
+            }
+        }
+    </script>
 </head>
 <body>
-<div>
-    <div id="tagField">      </div>
-    <img src="">
-</div>
-<script>
-    function addtag(){
-        var field = document.getElementById("tagField") ;
-        var newtag = document.createElement("div");
-    }
-
-</script>
+    <h1 align="center">Build your own score!</h1>
+    <table width="50%">
+        <tr>
+            <td>
+                <div style="border:solid blue 1px;">
+                    <div align="center">
+                        <button onclick=changeTab()>Melody</button>
+                        <button onclick=changeTab()>Chord</button>
+                    </div>
+                    <section id="melody" name="melody" style="display:none">
+                        <button>A</button><br>
+                        <button>A#</button><br>
+                        <button>B</button><br>
+                        <button>B#</button><br>
+                        <button>C</button><br>
+                        <button>C#</button><br>
+                        <button>D</button><br>
+                        <button>D#</button><br>
+                        <button>E</button><br>
+                        <button>F</button><br>
+                        <button>F#</button><br>
+                        <button>G</button><br>
+                        <button>G#</button><br>
+                    </section>
+                    <section id="chord" name="chord" style="display:block">
+                        <table align="center">
+                            <tr>
+                                <td>
+                                    <input type="radio" name="color" value="major"/>Major
+                                </td>
+                                <td>
+                                    <input type="radio" name="color" value="minor"/>Minor
+                                </td>
+                            </tr>
+                        </table>
+                        <button>A</button><br>
+                        <button>A#</button><br>
+                        <button>B</button><br>
+                        <button>B#</button><br>
+                        <button>C</button><br>
+                        <button>C#</button><br>
+                        <button>D</button><br>
+                        <button>D#</button><br>
+                        <button>E</button><br>
+                        <button>F</button><br>
+                        <button>F#</button><br>
+                        <button>G</button><br>
+                        <button>G#</button><br>
+                    </section>
+                </div>
+            </td>
+            <td>
+                <div style="border:solid red 1px;">
+                    <p>sb</p>
+                </div>
+            </td>
+        </tr>
+    </table>
+    
+    
 </body>
 </html>
