@@ -812,22 +812,22 @@ var stopAudio = function() {
 	// stop the audio, and intervals
 	while (eventQueue.length) {
 		var o = eventQueue.pop();
-		window.clearInterval(o.interval);
-		if (!o.source) continue; // is not webaudio
-		if (typeof(o.source) === 'number') {
-			window.clearTimeout(o.source);
-		} else { // webaudio
-			o.source.disconnect(0);
+            window.clearInterval(o.interval);
+            if (!o.source) continue; // is not webaudio
+            if (typeof(o.source) === 'number') {
+                window.clearTimeout(o.source);
+            } else { // webaudio
+                o.source.disconnect(0);
 		}
 	}
 	// run callback to cancel any notes still playing
-	for (var key in noteRegistrar) {
-		var o = noteRegistrar[key]
-		if (noteRegistrar[key].message === 144 && onMidiEvent) {
-			onMidiEvent({
-				channel: o.channel,
-				note: o.note,
-				now: o.now,
+                for (var key in noteRegistrar) {
+                var o = noteRegistrar[key]
+                if (noteRegistrar[key].message === 144 && onMidiEvent) {
+                    onMidiEvent({
+                        channel: o.channel,
+                        note: o.note,
+                        now: o.now,
 				end: o.end,
 				message: 128,
 				velocity: o.velocity

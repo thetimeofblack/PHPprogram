@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <!-- shim -->
+    <script src="../inc/shim/Base64.js" type="text/javascript"></script>
+    <script src="../inc/shim/Base64binary.js" type="text/javascript"></script>
+    <script src="../inc/shim/WebAudioAPI.js" type="text/javascript"></script>
+    <!-- midi.js package -->
+    <script src="../js/midi/audioDetect.js" type="text/javascript"></script>
+    <script src="../js/midi/gm.js" type="text/javascript"></script>
+    <script src="../js/midi/loader.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.audiotag.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.webaudio.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.webmidi.js" type="text/javascript"></script>
+    <script src="../js/midi/player.js" type="text/javascript"></script>
+    <!-- utils -->
+    <script src="../js/util/dom_request_xhr.js" type="text/javascript"></script>
+    <script src="../js/util/dom_request_script.js" type="text/javascript"></script>
+    <!-- includes -->
+    <script src="./inc/timer.js" type="text/javascript"></script>
+    <!-- font -->
+    <link href="http://fonts.googleapis.com/css?family=Andada" rel="stylesheet" type="text/css" />
+    <style>
+        body {
+            background: #000; color: #fff; font-family: andada; line-height: 1.5em;
+        }
+        a {
+            color: #fff
+        }
+    </style>
+</head>
+<script>
+    function test() {
+        var onsucess1 = function() {
+            var delay = 0; // play one note every quarter second
+            var note = 50;
+            var note1 = 21; // the MIDI note
+            var velocity = 127; // how hard the note hits
+            // play the note
+            MIDI.setVolume(0, 127);
+            MIDI.noteOn(0, note, velocity, delay);
+            MIDI.noteOff(0, note, delay+1 );
+            MIDI.noteOn(0,note1, velocity ,delay);
+            MIDI.noteOff(0, note1, delay+1 );
+        }
+        var onsucess2 = function() {
+            var delay = 0; // play one note every quarter second
+            var note = 50;
+            var note1 = 21; // the MIDI note
+            var velocity = 127; // how hard the note hits
+            // play the note
+            MIDI.setVolume(0, 127);
+            MIDI.noteOn(0, note1, velocity, delay);
+            MIDI.noteOff(0, note1, delay +1);
+        }
+        MIDI.loadPlugin({
+            soundfontUrl: "./soundfont/",
+            instrument: "acoustic_grand_piano", // or the instrument code 1 (aka the default)
+                onprogress: function(state, progress) {
+                    console.log(state, progress);
+                },
+            onsuccess:onsucess1
+        });
+        /*
+        MIDI.loadPlugin({
+            soundfontUrl: "./soundfont/",
+            instrument: "acoustic_grand_piano", // or the instrument code 1 (aka the default)
+            onprogress: function(state, progress) {
+                console.log(state, progress);
+            },
+            onsuccess:onsucess2
+        });
+        */
+    }
+    function test2(){
+
+
+    }
+
+</script>
+<body>
+<p id="title"></p>
+<input type="button" id = "main" onclick="test()" name="test for midi plug in"/>
+<input type="button" id = "main2" onclick="test2()" name="test for midi playing"/>
+
+</body>
+</html>
