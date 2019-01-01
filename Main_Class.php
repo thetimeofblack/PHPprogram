@@ -5,7 +5,7 @@
  * Date: 2019/1/1
  * Time: 13:50
  */
-class chord {
+class Chord {
     private $Content = "";
     private $Name = "" ;
     public function getContent(){
@@ -23,4 +23,27 @@ class chord {
         $this->Content = $Content ;
     }
 }
+
+class User {
+    private $UserName;
+    private $UserPassword;
+    public function getUserName() {
+        return $this->UserName ;
+    }
+    public function getUserPassword(){
+        return $this->UserPassword ;
+
+    }
+
+    public function setUserName($Name){
+       $this->UserName = $Name;
+    }
+
+    public function setUserPassword($Password){
+        $this->UserPassword = $Password ;
+    }
+
+
+}
+
 ?>
