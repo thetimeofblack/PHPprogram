@@ -20,7 +20,7 @@
 <body>
 <script type="text/javascript">
 
-window.onload = function () {
+function playScale () {
 
 	MIDI.loadPlugin({
 		soundfontUrl: "./soundfont/",
@@ -30,16 +30,120 @@ window.onload = function () {
 		},
 		onsuccess: function() {
 			var delay = 0; // play one note every quarter second
-			var note = 100; // the MIDI note
+			var note = 50; // the MIDI note
 			var velocity = 127; // how hard the note hits
 			// play the note
+
+			MIDI.setVolume(10, 0);
+            MIDI.noteOn(0, note, velocity, delay);
+            MIDI.noteOff(0, note, delay + 0.75);
+
+
 			MIDI.setVolume(10, 127);
-			MIDI.noteOn(0, note, velocity, delay);
-			MIDI.noteOff(0, note, delay + 0.75);
+			for(var i = 0; i < 4; i++)
+			{
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+4, velocity-27, delay);
+                MIDI.noteOff(0, note+4, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note - 5;//5th
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+4, velocity-27, delay);
+                MIDI.noteOff(0, note+4, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note + 2;//6th
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+3, velocity-27, delay);
+                MIDI.noteOff(0, note+3, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note - 5;//3th
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+3, velocity-27, delay);
+                MIDI.noteOff(0, note+3, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note + 1;//4th
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+4, velocity-27, delay);
+                MIDI.noteOff(0, note+4, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note - 5;
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+4, velocity-27, delay);
+                MIDI.noteOff(0, note+4, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note + 5;
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+4, velocity-27, delay);
+                MIDI.noteOff(0, note+4, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note + 2;
+                delay = delay + 1;
+                MIDI.noteOn(0, note, velocity, delay);
+                MIDI.noteOff(0, note, delay + 0.75);
+                MIDI.noteOn(0, note+4, velocity-27, delay);
+                MIDI.noteOff(0, note+4, delay + 0.75);
+                MIDI.noteOn(0, note+7, velocity-27, delay);
+                MIDI.noteOff(0, note+7, delay + 0.75);
+
+                note = note + 5;
+			}
+
+
+
+			//
+            // note = note - 6;
+            // delay = delay + 2;
+            // MIDI.noteOn(0, note, velocity, delay);
+            // MIDI.noteOff(0, note, delay + 1.75);
+            // MIDI.noteOn(0, note+4, velocity-27, delay);
+            // MIDI.noteOff(0, note+4, delay + 1.75);
+            // MIDI.noteOn(0, note+7, velocity-27, delay);
+            // MIDI.noteOff(0, note+7, delay + 1.75);
+
+
+
+
+
+			// for(var i = 0; i < (127-24); i++)
+			// {
+            //     MIDI.noteOn(0, note, velocity, delay);
+            //     MIDI.noteOff(0, note, delay + 0.5);
+			//     delay = delay + 0.5;
+			//     note ++;
+			// }
 		}
 	});
-};
+}
 
 </script>
+<button type="button" onclick="playScale()">Play the scale!</button>
 </body>
 </html>
