@@ -48,9 +48,10 @@ class User {
 
 class Score {
 
-    private $Userid = "";
-    private $LengthList ;
-    private $ChordList ;
+    private $Userid ;
+    private $LengthList = array() ;
+    private $ChordList  = array() ;
+    private $scoreid ;
 
     public function getUserid(){
         return $this->Userid;
