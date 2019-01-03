@@ -20,17 +20,21 @@
         function addNote(noteName){
             var tr1 = document.getElementById("melrow1");
             var td1 = tr1.insertCell();
+            //td1.class = "tick";
             td1.colSpan = document.getElementById("noteLength").value;
             td1.innerHTML = document.getElementById("noteLength").value;
 
             var tr2 = document.getElementById("melrow2");
             for (i=0;i<document.getElementById("noteLength").value;i++){
                 var td2 = tr2.insertCell();
+                td2.style.width="50px";
+                td2.style.minwidth="50px";
                 td2.style.backgroundColor="red";
             }
 
             var tr3 = document.getElementById("melrow3");
             var td3 = tr3.insertCell();
+            //td3.class = "tick";
             td3.colSpan = document.getElementById("noteLength").value;
             td3.innerHTML = noteName + document.getElementById("noteGroup").value;
         }
@@ -42,8 +46,8 @@
         } */
     </script>
     <style>
-        td{
-            width:15px;
+        .tick{
+            width:50px;
         }
     </style>
 </head>
@@ -56,9 +60,9 @@
     <h1 align="center">Build your own score!</h1>
     
     <!-- note choosing pad -->
-    <table style="border:solid black 1px;width:80%;" align="center">
+    <table style="border:solid black 1px;width:1900px;" align="center">
         <tr>
-            <td style="width:30%;">
+            <td style="width:570px;">
                 <!-- choosing window -->
                 <div style="border:solid blue 1px">
                     <div align="center">
@@ -121,7 +125,7 @@
                         </table>
                         <table style="border:solid orange 1px;">
                             <tr>
-                                <td rowspan="13">
+                                <td>
                                     <button>A</button><br>
                                     <button>A#</button><br>
                                     <button>B</button><br>
@@ -158,22 +162,24 @@
                     </section>
                 </div>
             </td>
-            <td>
+            <td style="width:1330px;table-layout:fixed;">
                 <!-- display window -->
-                <div style="border:solid red 1px;">
+                <div style="overflow-x:scroll;width:1300px;border:solid red 1px;">
                     <!-- melody display -->
-                    <table border="1" id="melodyTable" style="border:solid green 1px;">
+                    <table border="1" id="melodyTable" style="max-width:1300px;border:solid green 1px;">
                         <tr id="melrow1">
-                            <td>1</td>
+                            <td width="50px" min-width="50px">1</td>
                         </tr>
                         <tr id="melrow2">
-                            <td>2</td>
+                            <td width="50px" min-width="50px">2</td>
                         </tr>
                         <tr id="melrow3">
-                            <td>3</td>
+                            <td width="50px" min-width="50px">3</td>
                         </tr>
                     </table>
+                </div>
                     <br><br><br>
+                <div>
                     <!-- chord display -->
                     <table id="chordTable" style="border:solid yellow 1px;">
                         <tr id="chorow1">
