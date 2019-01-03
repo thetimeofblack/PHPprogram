@@ -4,3 +4,5 @@ major 3rd chord: x x+4 x+7
 minor 3rd chord: x x+3 x+7
 augmented 3rd chord: x x+4 x+8
 diminished 3rd chord: x x+3 x+6
+
+major 3rd sus 4th: x x+4 x+5
