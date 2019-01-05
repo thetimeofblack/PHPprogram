@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Score Editor</title>
     <script>
+        var unitCount;
+        
         function changeTabNote(){
             if (document.getElementById("melody").style.display == "none"){
                 document.getElementById("melody").style.display = "block";
@@ -23,7 +25,7 @@
             var td1 = tr1.insertCell();
             //td1.setAttribute ("className","tick");
             td1.colSpan = document.getElementById("noteLength").value;
-            td1.innerHTML = document.getElementById("noteLength").value;
+            td1.innerHTML = document.getElementById("noteLength").value + "<p>unitCount</p>";
 
             var tr2 = document.getElementById("melrow2");
             for (i=0;i<document.getElementById("noteLength").value;i++){
@@ -38,37 +40,54 @@
             //td3.setAttribute ("className","tick");
             td3.colSpan = document.getElementById("noteLength").value;
             td3.innerHTML = noteName + document.getElementById("noteGroup").value;
+       
+            var tr4 = document.getElementById("melrow4");
+            var td4 = tr4.insertCell();
+            //td4.setAttribute ("className","tick");
+            td4.colSpan = document.getElementById("noteLength").value;
+            td4.innerHTML = "<button>delete</button>";
+        
+            unitCount += document.getElementById("noteLength").value;
         }
 
 
         function addChord(chordName, color){
-            var tr4 = document.getElementById("chorow1");
-            var td4 = tr4.insertCell();
-            //td4.setAttribute ("className","tick");
-            td4.colSpan = document.getElementById("chordLength").value;
-            td4.innerHTML = document.getElementById("chordLength").value;
+            var tr5 = document.getElementById("chorow1");
+            var td5 = tr5.insertCell();
+            //td5.setAttribute ("className","tick");
+            td5.colSpan = document.getElementById("chordLength").value;
+            td5.innerHTML = document.getElementById("chordLength").value;
 			
-			var tr5 = document.getElementById("chorow2");
+			var tr6 = document.getElementById("chorow2");
             for (i=0;i<document.getElementById("chordLength").value;i++){
-                var td5 = tr5.insertCell();
-                //td5.style.width="200px";
-                //td5.style.minwidth="200px";
-                td5.setAttribute("width","50px");
-                td5.style.backgroundColor="blue";
+                var td6 = tr6.insertCell();
+                //td6.style.width="200px";
+                //td6.style.minwidth="200px";
+                td6.setAttribute("width","50px");
+                td6.style.backgroundColor="blue";
             }
 			
-			var tr6 = document.getElementById("chorow3");
-            var td6 = tr6.insertCell();
-            td6.colSpan = document.getElementById("chordLength").value;
+			var tr7 = document.getElementById("chorow3");
+            var td7 = tr7.insertCell();
+            td7.colSpan = document.getElementById("chordLength").value;
             //alert(document.getElementById("color").value);
 			if (document.getElementById("color").value == "major"){
-                td6.innerHTML = chordName + document.getElementById("chordGroup").value;
+                td7.innerHTML = chordName + document.getElementById("chordGroup").value;
             }else if(document.getElementById("color").value == "minor"){
-                td6.innerHTML = chordName + "m" + document.getElementById("chordGroup").value;
+                td7.innerHTML = chordName + document.getElementById("chordGroup").value + "m";
             }
+
+            var tr8 = document.getElementById("chorow4");
+            var td8 = tr8.insertCell();
+            //td8.setAttribute ("className","tick");
+            td8.colSpan = document.getElementById("chordLength").value;
+            td8.innerHTML = "<button>delete</button>";
         }
 
+        function deleteNote(){
 
+
+        }
     </script>
     <style>
         .tick{
@@ -189,7 +208,7 @@
 			<td style="width:1330px;">
                 <div style="overflow-x:scroll;width:1300px;border:solid red 1px;">
                     <!-- melody display -->
-                    <table border="1" id="melodyTable" style="table-layout:fixed;max-width:1300px;border:solid green 1px;">
+                    <table id="melodyTable" style="table-layout:fixed;max-width:1300px;border:solid green 1px;">
                         <tr id="melrow1" height="20px;">
                             <td>1</td>
                         </tr>
@@ -199,6 +218,9 @@
                         <tr id="melrow3" height="20px;">
                             <td>3</td>
                         </tr>
+                        <tr id="melrow4" height="20px;">
+                            <td>4</td>
+                        </tr>
                     </table>
                 </div>
                 <br><br>
@@ -206,13 +228,16 @@
                     <!-- chord display -->
                     <table border="1" id="chordTable" style="table-layout:fixed;max-width:1300px;border:solid yellow 1px;">
                         <tr id="chorow1" height="20px;">
-                            <td>4</td>
-                        </tr>
-                        <tr id="chorow2" height="20px;">
                             <td>5</td>
                         </tr>
-                        <tr id="chorow3" height="20px;">
+                        <tr id="chorow2" height="20px;">
                             <td>6</td>
+                        </tr>
+                        <tr id="chorow3" height="20px;">
+                            <td>7</td>
+                        </tr>
+                        <tr id="chorow4" height="20px;">
+                            <td>8</td>
                         </tr>
                     </table>
                 </div>
