@@ -221,19 +221,39 @@
                     <button name="play">play</button>
                     <button name="pause">pause</button>
                     <button name="stop">stop</button>
-                    <button name="save" onclick="sendData()" style="margin-left:20%;">save</button>
+                    <form action="main.html">
+                        <input id="postMelody" name ="Melody" type="text"  style="display: none;"/>
+                        <p id="Melody2" name="Melody2"></p>
+                        <button name="save" type="submit" onclick="sendData()" style="margin-left:20%;">save</button>
+                    </form>
                 </div>
             </td>
         </tr>
     </table>
     <script>
         function sendData() {
-            var tdlist = document.getElementById("melrow1").childNodes;
-            for (var i = 0; i < tdlist.length; i++) {
-                var element = tdlist[i];
-                alert(element.innerHTML);
+            var melody = document.getElementById("melody");
+            if(melody.style.display=="block") {
+                var tdlist1 = document.getElementById("melrow1").childNodes;
+                var tdlist2 = document.getElementById("melrow2").childNodes;
+                var tdlist3 = document.getElementById("melrow3").childNodes;
+                for (var i = 3; i < tdlist1.length; i++) {
+                    var element1 = tdlist1[i];
+                    var element2 = tdlist2[i];
+                    var element3 = tdlist3[i];
+
+                    var postMelody = document.getElementById("Melody2");
+                    //document.getElementById("postMelody").innerHTML = element1.innerHTML+element2.innerHTML+element3.innerHTML;
+                    var poststring = element1.innerHTML+element2.innerHTML+element3.innerHTML;
+                    alert(poststring);
+                    postMelody.innerHTML=poststring ;
+                    alert(postMelody.innerHTML);
+                }
+            }else {
+                var tdlist = document.getElementById("chorow1");
 
             }
+                    alert(document.getElementById("postMelody").innerHTML);
         }
     </script>
     
