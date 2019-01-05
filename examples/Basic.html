@@ -21,6 +21,7 @@
 <script type="text/javascript">
 
 function playScale () {
+	var hello = true;
 
 	MIDI.loadPlugin({
 		soundfontUrl: "./soundfont/",
@@ -28,7 +29,7 @@ function playScale () {
 		onprogress: function(state, progress) {
 			console.log(state, progress);
 		},
-		onsuccess: function() {
+		onsuccess: function(hello) {
 			var delay = 0; // play one note every quarter second
 			var note = 50; // the MIDI note
 			var velocity = 127; // how hard the note hits
@@ -39,7 +40,7 @@ function playScale () {
             MIDI.noteOff(0, note, delay + 0.75);
 
 
-			MIDI.setVolume(10, 127);
+			MIDI.setVolume(0,127);
 			for(var i = 0; i < 4; i++)
 			{
                 delay = delay + 1;
@@ -49,6 +50,9 @@ function playScale () {
                 MIDI.noteOff(0, note+4, delay + 0.75);
                 MIDI.noteOn(0, note+7, velocity-27, delay);
                 MIDI.noteOff(0, note+7, delay + 0.75);
+
+
+
 
                 note = note - 5;//5th
                 delay = delay + 1;
@@ -112,9 +116,12 @@ function playScale () {
                 MIDI.noteOff(0, note+4, delay + 0.75);
                 MIDI.noteOn(0, note+7, velocity-27, delay);
                 MIDI.noteOff(0, note+7, delay + 0.75);
-
+				pausestop();
                 note = note + 5;
+
 			}
+
+
 
 
 
@@ -141,9 +148,20 @@ function playScale () {
 			// }
 		}
 	});
+               var pausestop = function (){
+                MIDI.stopAllNotes();
+                if(MIDI.playing){
+                    MIDI.Player.pause(true);
+                }else{
+
+        }
+
+    }
+
 }
 
 </script>
 <button type="button" onclick="playScale()">Play the scale!</button>
+<button type="button" onclick="pausestop()">stop the scale</button>
 </body>
 </html>

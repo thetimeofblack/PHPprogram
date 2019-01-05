@@ -10,10 +10,11 @@
                 document.getElementById("chord").style.display = "none";
             }
         }
+
         function changeTabChord(){    
             if (document.getElementById("chord").style.display == "none"){
                 document.getElementById("chord").style.display = "block";
-                document.getElementById("melody").style.display = "none"
+                document.getElementById("melody").style.display = "none";
             }
         }
 
@@ -32,13 +33,13 @@
                 td2.setAttribute("width","50px");
                 td2.style.backgroundColor="red";
             }
-
             var tr3 = document.getElementById("melrow3");
             var td3 = tr3.insertCell();
             //td3.setAttribute ("className","tick");
             td3.colSpan = document.getElementById("noteLength").value;
             td3.innerHTML = noteName + document.getElementById("noteGroup").value;
         }
+
 
         function addChord(chordName, color){
             var tr4 = document.getElementById("chorow1");
@@ -61,11 +62,13 @@
             td6.colSpan = document.getElementById("chordLength").value;
             //alert(document.getElementById("color").value);
 			if (document.getElementById("color").value == "major"){
-				td6.innerHTML = chordName + document.getElementById("chordGroup").value;
-			}else if(document.getElementById("color").value == "minor"){
-				td6.innerHTML = chordName + "m" + document.getElementById("chordGroup").value;
-			}
+                td6.innerHTML = chordName + document.getElementById("chordGroup").value;
+            }else if(document.getElementById("color").value == "minor"){
+                td6.innerHTML = chordName + "m" + document.getElementById("chordGroup").value;
+            }
         }
+
+
     </script>
     <style>
         .tick{
@@ -218,12 +221,21 @@
                     <button name="play">play</button>
                     <button name="pause">pause</button>
                     <button name="stop">stop</button>
-                    <button name="save" style="margin-left:20%;">save</button>
+                    <button name="save" onclick="sendData()" style="margin-left:20%;">save</button>
                 </div>
             </td>
         </tr>
     </table>
-    
+    <script>
+        function sendData() {
+            var tdlist = document.getElementById("melrow1").childNodes;
+            for (var i = 0; i < tdlist.length; i++) {
+                var element = tdlist[i];
+                alert(element.innerHTML);
+
+            }
+        }
+    </script>
     
 </body>
 </html>

@@ -10,6 +10,6 @@ create table userscore (id int auto_increment primary key , userid varchar(20) ,
 
 create table usermelody (id int auto_increment primary key , userid varchar(20) , melodyid varchar(20))
 
-create table score( id int auto_increment primary key , chord varchar(20) , length varchar(20))
+create table score( id int auto_increment primary key , chord varchar(20) , length varchar(20) , scoreid varchar(20))
 
-create table melody( id int auto_increment primary key , note varchar(20) , length varchar(20))
+create table melody( id int auto_increment, note varchar(20) , length varchar(20) , melodyid varchar(20))
