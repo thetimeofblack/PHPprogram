@@ -25,7 +25,8 @@
             var td1 = tr1.insertCell();
             //td1.setAttribute ("className","tick");
             td1.colSpan = document.getElementById("noteLength").value;
-            td1.innerHTML = document.getElementById("noteLength").value + "<p>unitCount</p>";
+            td1.innerHTML = document.getElementById("noteLength").value;
+            //alert(tr1.cells.length);
 
             var tr2 = document.getElementById("melrow2");
             for (i=0;i<document.getElementById("noteLength").value;i++){
@@ -35,6 +36,8 @@
                 td2.setAttribute("width","50px");
                 td2.style.backgroundColor="red";
             }
+            //alert(tr2.cells.length);
+
             var tr3 = document.getElementById("melrow3");
             var td3 = tr3.insertCell();
             //td3.setAttribute ("className","tick");
@@ -45,8 +48,9 @@
             var td4 = tr4.insertCell();
             //td4.setAttribute ("className","tick");
             td4.colSpan = document.getElementById("noteLength").value;
-            td4.innerHTML = "<button>delete</button>";
-        
+            td4.innerHTML = "<button id=unitCount onclick='test()'>delete</button>";
+            //alert(td4.colomn.count);
+
             unitCount += document.getElementById("noteLength").value;
         }
 
@@ -87,6 +91,10 @@
         function deleteNote(){
 
 
+        }
+
+        function test(){
+            alert(document.getElementById(unitCount).id);
         }
     </script>
     <style>
