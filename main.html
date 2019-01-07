@@ -119,7 +119,7 @@
                 <div style="border:solid blue 1px">
                     <div align="center">
                         <button onclick="changeTabNote()">Melody</button>
-                        <button onclick="changeTabChord()">Chord</button>
+                        <button onclick="changeTabChord()">Score</button>
                     </div>
                     <!-- note pad -->
                     <section id="melody" name="melody" style="display:block">
@@ -254,12 +254,16 @@
                     <button name="play">play</button>
                     <button name="pause">pause</button>
                     <button name="stop">stop</button>
-                    <form action="main.html" method="POST" onsubmit="saveData(o)">
+                    <form action="save.php" method="POST" onsubmit="saveData(o)">
+                        <input id="scorename" name ="scorename" type="text"  style="display: none;"/>
+                        <input id="scoredescription" name ="scoredescription" type="text"  style="display: none;"/>
+                        <input id="melodyname" name ="melodyname" type="text"  style="display: none;"/>
+                        <input id="melodydescription" name ="melodydescription" type="text"  style="display: none;"/>
                         <input id="lengthlist" name ="lengthlist" type="text"  style="display: none;"/>
                         <input id="chordlist" name ="chordlist" type="text"  style="display: none;"/>
                         <input id="timelist" name ="timelist" type="text"  style="display: none;"/>
                         <input id="notelist" name ="notelist" type="text"  style="display: none;"/>
-                        <button name="save" type="submit" style="margin-left:20%;">save</button>
+                        <input name="save" type="submit" style="margin-left:20%;">save</input>
                     </form>
                 </div>
             </td>
@@ -270,15 +274,13 @@
             var notelist ;
             var lengthlist;
             var timelist ;
-            var notelist;
-            if(melody.style.display=="block") {
-                var tdlist1 = document.getElementById("melrow1").childNodes;
-                var tdlist2 = document.getElementById("melrow2").childNodes;
-                var tdlist3 = document.getElementById("melrow3").childNodes;
-                for (var i = 3; i < tdlist1.length; i++) {
-                    var element1 = tdlist1[i];
-                    var element2 = tdlist2[i];
-                    var element3 = tdlist3[i];
+            var chordlist;
+            var melodytdlist1 = document.getElementById("melrow1").childNodes;
+            var melodytdlist3 = document.getElementById("melrow3").childNodes;
+            var scoretdlist1  = document.getElementById("chorow1").childNodes;
+            var scoretdlist3  = document.getElementById("chorow3").childNodes;
+                for (var i = 3; i < melodytdlist1.length; i++) {
+
 
                     var postMelody = document.getElementById("Melody2");
                     //document.getElementById("postMelody").innerHTML = element1.innerHTML+element2.innerHTML+element3.innerHTML;
@@ -286,12 +288,10 @@
                     alert(poststring);
                     postMelody.innerHTML=poststring ;
                     alert(postMelody.innerHTML);
-                }
-            }else {
-                var tdlist = document.getElementById("chorow1");
 
             }
                     alert(document.getElementById("postMelody").innerHTML);
+                    o.submit();
         }
     </script>
     
