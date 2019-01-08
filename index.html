@@ -2,7 +2,12 @@
 <html lang="en">
 	<head>
 		<meta charset = "utf-8" />
-		<title>homepage-Music Score Editor</title>
+        <title>homepage-Music Score Editor</title>
+        
+        <!-- source: -->
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	</head>
 	<style>
 		body{
@@ -38,19 +43,65 @@
 		}
 		
 		section{
-			padding-bottom:400px;
+			padding-bottom:110px;
 		}
 		
 		footer{
-			color:balck
+			color:balck;
 			font-family:Bahnschrift;
 			font-size:20px;
 			text-align:center;
 			margin-bottom:0%;
 		}
+
+        #button{
+            text-align:center;
+            width:150px;
+            height:100px;
+            font-size:30px;
+            color:#a4e2c6;
+            font-family:Arial Black;
+            background-color:#1bd1a5;
+        }
 	</style>
-	<body>
-		<header>
+    
+    <body>
+        <!-- author:   -->
+        <!-- Modal -->
+        <div id="UserLogin" class="w3-modal w3-animate-opacity">
+            <div class="w3-modal-content" style="padding:32px">
+                <div class="w3-container w3-white">
+                    <i onclick="document.getElementById('UserLogin').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
+                    <h2 class="w3-wide">Login In</h2>
+                    <p><input class="w3-input w3-border" type="text" placeholder="Enter UserName"></p>
+                    <p><input class="w3-input w3-border" type="text" placeholder="Enter UserPassword"></p>
+                    <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('UserLogin').style.display='none'">Log In</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SignUpModal -->
+        <div id="UserSignUp" class="w3-modal w3-animate-opacity">
+            <div class="w3-modal-content" style="padding:32px">
+                <div class="w3-container w3-white">
+                    <i onclick="document.getElementById('UserSignUp').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
+                    <h2 class="w3-wide">Sign Up</h2>
+                    <p><input class="w3-input w3-border" type="text" placeholder="Enter UserName"></p>
+                    <p><input class="w3-input w3-border" type="text" placeholder="Enter UserPassword"></p>
+                    <p><input class="w3-input w3-border" type="text" placeholder="Enter UserPassword Again"></p>
+                    <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('UserSignUp').style.display='none'">Log In</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top container -->
+        <!-- <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+        <input type="button" class="w3-button w3-right" value="Log In" onclick="document.getElementById('UserLogin').style.display='block'"/>
+        <input type="button" class="w3-button w3-right" value="Sign Up" onclick="document.getElementById('UserSignUp').style.display='block'"/>
+        </div> -->
+
+
+        <header>
 			<p id="pageTitle">Welcome to the Music Score Editor!</p>
 			<br><br>
 			<p id="pageSubTitle">Here, you can</p>
@@ -59,13 +110,20 @@
 		<section>
 			<div style="text-align:center;">
 				<a href="main.html">
-					<span id="direction">Create and Edit your own Score</span>
+					<span id="direction">Create&Edit your own Score</span>
 				</a>
-					<span id="connector">   and   </span>
+					<span id="connector">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
 				<a href="">
-					<span id="direction">Read and Play scores made by others</span>
+					<span id="direction">Read&Play scores made by others</span>
 				</a>
-			</div>
+            </div>
+            
+            <div style="margin-left:800px;padding-top:70px;text-align:center;">
+                <p id="pageSubTitle">Begin with</p>
+                <button id="button" onclick="document.getElementById('UserLogin').style.display='block'">LogIn</button>
+                <span>&nbsp;&nbsp;</span>
+                <button id="button" onclick="document.getElementById('UserSignUp').style.display='block'">Sign-Up</button>
+            </div>
 		</section>
 		<footer>
 			<p>Copyright® 2019 He,Yining Zhou,Kaiwen and Shan,Jiaxiang</p>
