@@ -83,30 +83,51 @@ class DBConnection{
     }
 
     public function getUserMelody($userid){
+
+        $melodylist = Array();
         if($this->db) {
             $sql = "select * from usermelody where userid = '".$userid."'";
-            $result = $this->db->query($sql);
-            $rows= $result->num_rows;
-            $melodylist = array();
-            while($rows){
-                $rows = $rows - 1;
-                $melody = new Melody();
-            }
-
+                $result = $this->db->query($sql);
+                $i=0;
+                if($result->num_rows>0){
+                    while($row = $result->fetch_assoc()){
+                         $melodyid = $row["id"];
+                         $melody = getMelodyElement($melodyid);
+                         $melody->setName($row["melodyname"]);
+                         $melody->setDescription($row["melodydescription"]);
+                         $melodylist[$i++]=$melody;
+                    }
+                }
+                return $melodylist;
         }
-        return $melodylist;
     }
 
 
-    public function getMelody($melodyid){
+    public function getMelodyElement($melodyid){
         $melody = new Melody();
+        $chordlist = Array();
+        $lengthlist = Array();
         if($this->db){
-
-
+            $sql = "select * from melody where melodyid ='".$melodyid. "'";
+            $result = $this->db->query($sql);
+            if ($result->num_rows > 0) {
+                $i = 0 ;                  // output data of each row
+                while($row = $result->fetch_assoc()) {
+                   $chordlist[$i++] = $row['note'];
+                   $lengthlist[$i++] = $row['length'];
+                }
+                $melody->setChordList($chordlist);
+                $melody->setLengthList($lengthlist);
+            } else {
+                echo "0 results";
+            }
         }
         return $melody;
     }
 
+    public function getScoreElement(){
+        $score = new Score();
+    }
 
     public function checkUser($userpassword){
         if($this->db){
