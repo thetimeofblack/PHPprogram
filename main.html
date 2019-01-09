@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Score Editor</title>
+
     <script>
         var unitCount;
         
@@ -96,21 +98,30 @@
         function test(){
             alert(document.getElementById(unitCount).id);
         }
+
+
     </script>
+
+
     <style>
         .tick{
             width:50px;
         }
     </style>
+
 </head>
+
 <body>
     <!-- login interface -->
+
     <header>
     </header>
-    
+
+
     <!-- title -->
     <h1 align="center">Build your own score!</h1>
-    
+
+
     <table style="table-layout:fixed;border:solid black 1px;width:1900px;" align="center">
         <tr>
             <!-- note choosing pad -->
@@ -217,6 +228,9 @@
                 <div style="overflow-x:scroll;width:1300px;border:solid red 1px;">
                     <!-- melody display -->
                     <table id="melodyTable" style="table-layout:fixed;max-width:1300px;border:solid green 1px;">
+                        <th>Melody</th>
+                        <tr><input type="text" id="MelodyNameText" />Name</tr>
+                        <tr><input type="text" id="MelodyDescriptionText">Description</tr>
                         <tr id="melrow1" height="20px;">
                             <td>1</td>
                         </tr>
@@ -254,46 +268,86 @@
                     <button name="play">play</button>
                     <button name="pause">pause</button>
                     <button name="stop">stop</button>
-                    <form action="save.php" method="POST" onsubmit="saveData(o)">
+                    <form action="save.php" method="POST" onsubmit="sendData(this);return false;">
                         <input id="scorename" name ="scorename" type="text"  style="display: none;"/>
                         <input id="scoredescription" name ="scoredescription" type="text"  style="display: none;"/>
                         <input id="melodyname" name ="melodyname" type="text"  style="display: none;"/>
                         <input id="melodydescription" name ="melodydescription" type="text"  style="display: none;"/>
-                        <input id="lengthlist" name ="lengthlist" type="text"  style="display: none;"/>
-                        <input id="chordlist" name ="chordlist" type="text"  style="display: none;"/>
-                        <input id="timelist" name ="timelist" type="text"  style="display: none;"/>
-                        <input id="notelist" name ="notelist" type="text"  style="display: none;"/>
-                        <input name="save" type="submit" style="margin-left:20%;">save</input>
+                        <input id="lengthlist" name ="lengthlist"  type="text"   style= "display: none;"/>
+                        <input id="chordlist"  name ="chordlist"   type="text"   style= "display: none;"/>
+                        <input id="timelist"   name ="timelist"    type="text"   style= "display: none;"/>
+                        <input id="notelist"   name ="notelist"    type="text"   style= "display: none;"/>
+                        <input id="userid"     name = "userid"     type ="text"  style ="display:none;"/>
+                        <input name="save"  type="submit" style="margin-left:20%;"/>
                     </form>
                 </div>
             </td>
         </tr>
     </table>
+
+
+
     <script>
-        function sendData() {
-            var notelist ;
-            var lengthlist;
-            var timelist ;
-            var chordlist;
+
+        function sendData(o) {
+            var notelist   =  new Array();
+            var lengthlist =  new Array();
+            var timelist=   new Array();
+            var chordlist=  new Array();
+
+
+
             var melodytdlist1 = document.getElementById("melrow1").childNodes;
             var melodytdlist3 = document.getElementById("melrow3").childNodes;
             var scoretdlist1  = document.getElementById("chorow1").childNodes;
             var scoretdlist3  = document.getElementById("chorow3").childNodes;
-                for (var i = 3; i < melodytdlist1.length; i++) {
 
 
-                    var postMelody = document.getElementById("Melody2");
-                    //document.getElementById("postMelody").innerHTML = element1.innerHTML+element2.innerHTML+element3.innerHTML;
-                    var poststring = element1.innerHTML+element2.innerHTML+element3.innerHTML;
-                    alert(poststring);
-                    postMelody.innerHTML=poststring ;
-                    alert(postMelody.innerHTML);
 
+            for(i = 3 ; i< melodytdlist3.length ; i++){
+                var element = melodytdlist3[i];
+                chordlist[i-3] =  element.innerHTML ;
             }
-                    alert(document.getElementById("postMelody").innerHTML);
-                    o.submit();
+
+
+            for(i = 3 ; i< melodytdlist1.length ; i++){
+                var element = melodytdlist1[i];
+                lengthlist[i-3] = element.innerHTML;
+            }
+
+
+            for(i = 3 ; i< scoretdlist3.length ; i++){
+                var element = scoretdlist3[i];
+                notelist[i-3] = element.innerHTML;
+                alert(element);
+            }
+
+            for(i=3 ;i<scoretdlist1.length ; i++){
+                var element = scoretdlist1[i];
+                timelist[i-3] = element.innerHTML;
+                alert(element);
+            }
+
+            var chordjson =  JSON.stringify(chordlist) ;
+            var lengthjson = JSON.stringify(lengthlist);
+            var notejson =   JSON.stringify(notelist)  ;
+            var timejson =   JSON.stringify(timelist)  ;
+
+            var lengthlistinput = document.getElementById("lengthlist");
+            lengthlistinput.value = lengthjson ;
+            var chordlistinput = document.getElementById("chordlist");
+            chordlistinput.value = chordjson ;
+            var timelistinput = document.getElementById("timelist");
+            timelistinput.value = timejson ;
+            var notelistinput = document.getElementById("notelist");
+            notelistinput.value = notejson ;
+            alert(lengthjson);
+
+            o.submit();
+
         }
-    </script>
-    
-</body>
+
+
+        </script>
+    </body>
 </html>
