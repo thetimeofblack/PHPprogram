@@ -72,7 +72,7 @@ class Melody {
     private $Userid ;
     private $LengthList = array() ;
     private $ChordList  = array() ;
-    private $scoreid ;
+    private $name;
     private $description ;
     public function getUserid(){
         return $this->Userid;
@@ -102,7 +102,16 @@ class Melody {
             return $this->description ;
     }
 
+    public function setName($name){
+            $this->name = $name;
+    }
+
+    public function getName(){
+            return $this->name;
+
+    }
 }
+
 
 
 

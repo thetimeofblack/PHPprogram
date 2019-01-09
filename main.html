@@ -250,6 +250,9 @@
                 <div style="overflow-x:scroll;width:1300px;border:solid red 1px;">
                     <!-- chord display -->
                     <table border="1" id="chordTable" style="table-layout:fixed;max-width:1300px;border:solid yellow 1px;">
+                        <th>Score</th>
+                        <tr><input type="text" id="ScoreNameText" />Name</tr>
+                        <tr><input type="text" id="ScoreDescriptionText">Description</tr>
                         <tr id="chorow1" height="20px;">
                             <td>5</td>
                         </tr>
@@ -281,6 +284,8 @@
                         <input id="userid"     name = "userid"     type ="text"  style ="display:none;"/>
                         <input name="save"  type="submit" style="margin-left:20%;"/>
                     </form>
+                    <input name="getMelody"  type="button" />
+                    <input name="getScore"   type="button" />
                 </div>
             </td>
         </tr>
@@ -345,10 +350,23 @@
             var userid = "23";
             var userinput = document.getElementById("userid");
             userinput.value = userid;
+            var melodynameinput = document.getElementById("melodyname");
+            var melodydescriptioninput = document.getElementById("melodydescription");
+            var scorenameinput = document.getElementById("scorename");
+            var scoredescriptioninput = document.getElementById("scoredescription");
+             melodynameinput.value = "MelodyName";
+             melodydescriptioninput.value = "MelodyDescription" ;
+             scorenameinput.value = "ScoreName" ;
+             scoredescriptioninput.value = "ScoreDescription";
+             o.submit();
 
+        }
 
+        function getMelody(){
 
-            o.submit();
+        }
+
+        function getScore(){
 
         }
 

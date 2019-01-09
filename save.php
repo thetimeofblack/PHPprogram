@@ -21,14 +21,27 @@ if(validateInput()) {
         $notelist = $_POST["notelist"];
         $lengthlist = $_POST["lengthlist"];
         $userid = $_POST["userid"];
+        $melodyname = $_POST["melodyname"];
+        $melodydescription = $_POST["melodydescription"];
+        $scorename = $_POST["scorename"];
+        $scoredescription = $_POST["scoredescription"];
         $chordlist  = json_decode($chordlist);
         $timelist   = json_decode($timelist);
         $notelist   = json_decode($notelist);
         $lengthlist = json_decode($lengthlist);
+
+
         $melody->setChordList($chordlist);
         $melody->setLengthList($lengthlist);
+        $melody->setName($melodyname);
+        $melody->setDescription($melodydescription);
+
         $score->setNoteList($notelist);
         $score->setTimeList($timelist);
+        $score->setName($scorename);
+        $score->setDescription($scoredescription);
+
+
         /*
         $count = count($chordlist);
         for($i=0;$i<$count;$i++){

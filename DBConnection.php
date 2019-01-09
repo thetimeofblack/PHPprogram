@@ -37,12 +37,13 @@ class DBConnection{
         if ($this->db) {
             $notelist = $melody->getChordList();
             $timelist = $melody->getLengthList();
+
             $melodyname = $melody->getName();
             $melodyDescription = $melody->getDescription();
             $notesize = count($notelist);
             $timesize = count($timelist);
             if ($this->db) {
-                $sql = "insert into usermelody(userid) values('" . $userid . "')";
+                $sql = "insert into usermelody(userid,melodyname,melodydescription) values('" . $userid . "','".$melodyname."','".$melodyDescription."')";
                 $result = $this->db->query($sql);
 
                 $melodyid = $this->db->insert_id;
@@ -66,10 +67,10 @@ class DBConnection{
             $timelist = $score->getTimeList();
             $notesize = count($notelist);
             if ($this->db) {
-                $sql = "insert into usermelody(userid,name, description) values('" . $userid ."','".$name."','".$description."')";
+                $sql = "insert into userscore(userid,scorename, scoredescription) values('" . $userid ."','".$name."','".$description."')";
                 $result = $this->db->query($sql);
-                echo "The Insert Result is " . $result."<br/>";
-                $melodyid = mysqli_insert_id();
+
+                $melodyid = $this->db->insert_id;
                 for ($i = 0; $i < $notesize; $i++) {
                     $note = $notelist[$i];
                     $time = $timelist[$i];
@@ -95,6 +96,17 @@ class DBConnection{
         }
         return $melodylist;
     }
+
+
+    public function getMelody($melodyid){
+        $melody = new Melody();
+        if($this->db){
+
+
+        }
+        return $melody;
+    }
+
 
     public function checkUser($userpassword){
         if($this->db){
