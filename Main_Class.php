@@ -78,11 +78,11 @@ class Melody {
         return $this->Userid;
     }
 
-    public function getLength(){
+    public function getLengthList(){
         return $this->LengthList;
     }
 
-    public function getChord(){
+    public function getChordList(){
         return $this->ChordList ;
     }
 

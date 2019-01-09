@@ -20,13 +20,25 @@ if(validateInput()) {
         $timelist = $_POST["timelist"];
         $notelist = $_POST["notelist"];
         $lengthlist = $_POST["lengthlist"];
-        $chordlist = json_decode($chordlist);
+        $userid = $_POST["userid"];
+        $chordlist  = json_decode($chordlist);
+        $timelist   = json_decode($timelist);
+        $notelist   = json_decode($notelist);
+        $lengthlist = json_decode($lengthlist);
+        $melody->setChordList($chordlist);
+        $melody->setLengthList($lengthlist);
+        $score->setNoteList($notelist);
+        $score->setTimeList($timelist);
+        /*
         $count = count($chordlist);
         for($i=0;$i<$count;$i++){
             echo $chordlist[$i]."</br>";
         }
+        */
         $DBobject = new DBConnection();
-        $DBobject->saveUserMelody($userid , $melody);
+        $DBobject->saveUserMelody($userid   , $melody);
+        $DBobject->saveUserScore($userid   ,   $score);
+
         $DBobject->closeDataBase();
 
         echo "<h2> save the Score and Melody successful</h2> "  ;

@@ -35,9 +35,10 @@ class DBConnection{
     public function saveUserMelody($userid, $melody)
     {
         if ($this->db) {
-            $notelist = $melody->getNoteList();
-            $timelist = $melody->getTimeList();
+            $notelist = $melody->getChordList();
+            $timelist = $melody->getLengthList();
             $notesize = count($notelist);
+            $timesize = count($timelist);
             if ($this->db) {
                 $sql = "insert into usermelody(userid) values('" . $userid . "')";
                 $result = $this->db->query($sql);
