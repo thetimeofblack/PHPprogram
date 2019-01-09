@@ -320,13 +320,13 @@
             for(i = 3 ; i< scoretdlist3.length ; i++){
                 var element = scoretdlist3[i];
                 notelist[i-3] = element.innerHTML;
-                alert(element);
+
             }
 
             for(i=3 ;i<scoretdlist1.length ; i++){
                 var element = scoretdlist1[i];
                 timelist[i-3] = element.innerHTML;
-                alert(element);
+
             }
 
             var chordjson =  JSON.stringify(chordlist) ;
@@ -342,7 +342,11 @@
             timelistinput.value = timejson ;
             var notelistinput = document.getElementById("notelist");
             notelistinput.value = notejson ;
-            alert(lengthjson);
+            var userid = "23";
+            var userinput = document.getElementById("userid");
+            userinput.value = userid;
+
+
 
             o.submit();
 

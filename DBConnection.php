@@ -37,12 +37,16 @@ class DBConnection{
         if ($this->db) {
             $notelist = $melody->getChordList();
             $timelist = $melody->getLengthList();
+            $melodyname = $melody->getName();
+            $melodyDescription = $melody->getDescription();
             $notesize = count($notelist);
             $timesize = count($timelist);
             if ($this->db) {
                 $sql = "insert into usermelody(userid) values('" . $userid . "')";
                 $result = $this->db->query($sql);
-                $melodyid = mysqli_insert_id();
+
+                $melodyid = $this->db->insert_id;
+               // echo "This is melodyid " . $melodyid;
                 for ($i = 0; $i < $notesize; $i++) {
                     $note = $notelist[$i];
                     $time = $timelist[$i];
