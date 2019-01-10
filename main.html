@@ -6,7 +6,7 @@
     <title>Score Editor</title>
 
     <script>
-        var unitCount;
+        var unitCount=0;
         
         function changeTabNote(){
             if (document.getElementById("melody").style.display == "none"){
@@ -22,72 +22,78 @@
             }
         }
 
-        function addNote(noteName){
-            var tr1 = document.getElementById("melrow1");
-            var td1 = tr1.insertCell();
-            //td1.setAttribute ("className","tick");
-            td1.colSpan = document.getElementById("noteLength").value;
-            td1.innerHTML = document.getElementById("noteLength").value;
-            //alert(tr1.cells.length);
+        function addNote(noteName,blockColor){
+            if((document.getElementById("noteLength").value>0)&&(!document.getElementById("noteGroup").value=="")){
+                var tr1 = document.getElementById("melrow1");
+                var td1 = tr1.insertCell();
+                //td1.setAttribute ("className","tick");
+                td1.colSpan = document.getElementById("noteLength").value;
+                td1.innerHTML = document.getElementById("noteLength").value;
+                //alert(tr1.cells.length);
 
-            var tr2 = document.getElementById("melrow2");
-            for (i=0;i<document.getElementById("noteLength").value;i++){
-                var td2 = tr2.insertCell();
-                //td2.style.width="200px";
-                //td2.style.minwidth="200px";
-                td2.setAttribute("width","50px");
-                td2.style.backgroundColor="red";
+                var tr2 = document.getElementById("melrow2");
+                for (i=0;i<document.getElementById("noteLength").value;i++){
+                    var td2 = tr2.insertCell();
+                    //td2.style.width="200px";
+                    //td2.style.minwidth="200px";
+                    td2.setAttribute("width","50px");
+                    td2.style.backgroundColor = blockColor;
+                }
+         
+                //alert(tr2.cells.length);
+
+                var tr3 = document.getElementById("melrow3");
+                var td3 = tr3.insertCell();
+                //td3.setAttribute ("className","tick");
+                td3.colSpan = document.getElementById("noteLength").value;
+                td3.innerHTML = noteName + document.getElementById("noteGroup").value;
+        
+                var tr4 = document.getElementById("melrow4");
+                var td4 = tr4.insertCell();
+                //td4.setAttribute ("className","tick");
+                td4.colSpan = document.getElementById("noteLength").value;
+                td4.innerHTML = "<button onclick='test()'>delete</button>";
+                
+                //alert(td4.colomn.count);
+
+                unitCount += document.getElementById("noteLength").value;
             }
-            //alert(tr2.cells.length);
-
-            var tr3 = document.getElementById("melrow3");
-            var td3 = tr3.insertCell();
-            //td3.setAttribute ("className","tick");
-            td3.colSpan = document.getElementById("noteLength").value;
-            td3.innerHTML = noteName + document.getElementById("noteGroup").value;
-       
-            var tr4 = document.getElementById("melrow4");
-            var td4 = tr4.insertCell();
-            //td4.setAttribute ("className","tick");
-            td4.colSpan = document.getElementById("noteLength").value;
-            td4.innerHTML = "<button id=unitCount onclick='test()'>delete</button>";
-            //alert(td4.colomn.count);
-
-            unitCount += document.getElementById("noteLength").value;
         }
 
 
-        function addChord(chordName, color){
-            var tr5 = document.getElementById("chorow1");
-            var td5 = tr5.insertCell();
-            //td5.setAttribute ("className","tick");
-            td5.colSpan = document.getElementById("chordLength").value;
-            td5.innerHTML = document.getElementById("chordLength").value;
-			
-			var tr6 = document.getElementById("chorow2");
-            for (i=0;i<document.getElementById("chordLength").value;i++){
-                var td6 = tr6.insertCell();
-                //td6.style.width="200px";
-                //td6.style.minwidth="200px";
-                td6.setAttribute("width","50px");
-                td6.style.backgroundColor="blue";
-            }
-			
-			var tr7 = document.getElementById("chorow3");
-            var td7 = tr7.insertCell();
-            td7.colSpan = document.getElementById("chordLength").value;
-            //alert(document.getElementById("color").value);
-			if (document.getElementById("color").value == "major"){
-                td7.innerHTML = chordName + document.getElementById("chordGroup").value;
-            }else if(document.getElementById("color").value == "minor"){
-                td7.innerHTML = chordName + document.getElementById("chordGroup").value + "m";
-            }
+        function addChord(chordName,blockColor){
+            if((document.getElementById("chordLength").value>0)&&(!document.getElementById("chordGroup").value=="")){
+                var tr5 = document.getElementById("chorow1");
+                var td5 = tr5.insertCell();
+                //td5.setAttribute ("className","tick");
+                td5.colSpan = document.getElementById("chordLength").value;
+                td5.innerHTML = document.getElementById("chordLength").value;
+                
+                var tr6 = document.getElementById("chorow2");
+                for (i=0;i<document.getElementById("chordLength").value;i++){
+                    var td6 = tr6.insertCell();
+                    //td6.style.width="200px";
+                    //td6.style.minwidth="200px";
+                    td6.setAttribute("width","50px");
+                    td6.style.backgroundColor = blockColor;
+                }
+                
+                var tr7 = document.getElementById("chorow3");
+                var td7 = tr7.insertCell();
+                td7.colSpan = document.getElementById("chordLength").value;
+                //alert(document.getElementById("color").value);
+                if (document.getElementById("color").value == "major"){
+                    td7.innerHTML = chordName + document.getElementById("chordGroup").value;
+                }else if(document.getElementById("color").value == "minor"){
+                    td7.innerHTML = chordName + document.getElementById("chordGroup").value + "m";
+                }
 
-            var tr8 = document.getElementById("chorow4");
-            var td8 = tr8.insertCell();
-            //td8.setAttribute ("className","tick");
-            td8.colSpan = document.getElementById("chordLength").value;
-            td8.innerHTML = "<button>delete</button>";
+                var tr8 = document.getElementById("chorow4");
+                var td8 = tr8.insertCell();
+                //td8.setAttribute ("className","tick");
+                td8.colSpan = document.getElementById("chordLength").value;
+                td8.innerHTML = "<button>delete</button>";
+            }
         }
 
         function deleteNote(o){
@@ -97,7 +103,7 @@
         }
 
         function test(){
-            alert(document.getElementById(unitCount).id);
+            alert(this.parentNode.cells.index);
         }
 
 
@@ -105,8 +111,22 @@
 
 
     <style>
-        .tick{
-            width:50px;
+        body{
+            background-color:rgba(0,128,255,0.2);
+        }
+
+        footer{
+			color:balck;
+			font-family:Bahnschrift;
+			font-size:20px;
+			text-align:center;
+			margin-bottom:0%;
+		}
+
+        #hint{
+            color:balck;
+			font-family:Bahnschrift;
+			font-size:18px;
         }
     </style>
 
@@ -120,40 +140,41 @@
 
 
     <!-- title -->
-    <h1 align="center">Build your own score!</h1>
+    <h1 style="font-size:50px;font-family:Arial Black;color:orange;text-align:center;">Build your own score!</h1>
 
 
-    <table style="table-layout:fixed;border:solid black 1px;width:1900px;" align="center">
+    <table border="1" style="table-layout:fixed;width:1880px;" align="center">
         <tr>
             <!-- note choosing pad -->
-            <td style="width:570px;">
+            <td style="width:400px;background-color:#fffbf0;">
                 <!-- choosing window -->
-                <div style="border:solid blue 1px">
+                <div style="text-align:center;">
                     <div align="center">
-                        <button onclick="changeTabNote()">Melody</button>
-                        <button onclick="changeTabChord()">Score</button>
+                        <button style="width:140px;height:70px;font-size:20px;font-family:Arial Black;font-weight:bold;color:black;background-color:white;" onclick="changeTabNote()">Melody</button>
+                        <button style="width:140px;height:70px;font-size:20px;font-family:Arial Black;font-weight:bold;color:black;background-color:white;" onclick="changeTabChord()">Score</button>
                     </div>
+                    <br>
                     <!-- note pad -->
-                    <section id="melody" name="melody" style="display:block">
-                        <table style="border:solid orange 1px;">
+                    <section id="melody" name="melody" style="text-align:center;display:block">
+                        <table align="center" style="width:300px;border:solid black 2px;text-align:center;">
                             <tr>
                                 <td>
-                                    <button onclick="addNote('A')">A</button><br>
-                                    <button onclick="addNote('A#')">A#</button><br>
-                                    <button onclick="addNote('B')">B</button><br>
-                                    <button onclick="addNote('B#')">B#</button><br>
-                                    <button onclick="addNote('C')">C</button><br>
-                                    <button onclick="addNote('C#')">C#</button><br>
-                                    <button onclick="addNote('D')">D</button><br>
-                                    <button onclick="addNote('D#')">D#</button><br>
-                                    <button onclick="addNote('E')">E</button><br>
-                                    <button onclick="addNote('F')">F</button><br>
-                                    <button onclick="addNote('F#')">F#</button><br>
-                                    <button onclick="addNote('G')">G</button><br>
-                                    <button onclick="addNote('G#')">G#</button><br>
+                                    <button onclick="addNote('A','#f20c00')">A</button><br>
+                                    <button onclick="addNote('A#','#ffa400')">A#</button><br>
+                                    <button onclick="addNote('B','#fff143')">B</button><br>
+                                    <button onclick="addNote('B#','#00bc12')">B#</button><br>
+                                    <button onclick="addNote('C','#3eede7')">C</button><br>
+                                    <button onclick="addNote('C#','#4b5cc4')">C#</button><br>
+                                    <button onclick="addNote('D','#8d4bbb')">D</button><br>
+                                    <button onclick="addNote('D#','#ff4777')">D#</button><br>
+                                    <button onclick="addNote('E','#ca6924')">E</button><br>
+                                    <button onclick="addNote('F','#eacd76')">F</button><br>
+                                    <button onclick="addNote('F#','#fffbf0')">F#</button><br>
+                                    <button onclick="addNote('G','#3de1ad')">G</button><br>
+                                    <button onclick="addNote('G#','#70f3ff')">G#</button><br>
                                 </td>
                                 <td>
-                                    <p>please select the note group</p>
+                                    <p id="hint">please select the note group</p>
                                     <select id="noteGroup" name="noteGroup">
                                         <option value="">---</option>
                                         <option value="-2">-2</option>
@@ -167,41 +188,40 @@
                                         <option value="6">6</option>
                                         <option value="7">7</option>
                                     </select>
-                                    <p>please select the length</p>
+                                    <p id="hint">please select the length</p>
                                     <input type="text" size="1" maxlength="1" id="noteLength" name="noteLength"/>
                                 </td>
                             </tr>
                         </table>
-                        
                     </section>
 					
                     <!-- chord pad -->
                     <section id="chord" name="chord" style="display:none">
-                        <table style="border:solid orange 1px;">
+                        <table align="center" style="width:300px;border:solid black 2px;text-align:center;">
                             <tr>
                                 <td>
-                                    <button onclick="addChord('A')">A</button><br>
-                                    <button onclick="addChord('A#')">A#</button><br>
-                                    <button onclick="addChord('B')">B</button><br>
-                                    <button onclick="addChord('B#')">B#</button><br>
-                                    <button onclick="addChord('C')">C</button><br>
-                                    <button onclick="addChord('C#')">C#</button><br>
-                                    <button onclick="addChord('D')">D</button><br>
-                                    <button onclick="addChord('D#')">D#</button><br>
-                                    <button onclick="addChord('E')">E</button><br>
-                                    <button onclick="addChord('F')">F</button><br>
-                                    <button onclick="addChord('F#')">F#</button><br>
-                                    <button onclick="addChord('G')">G</button><br>
-                                    <button onclick="addChord('G#')">G#</button><br>
+                                    <button onclick="addChord('A','#f20c00')">A</button><br>
+                                    <button onclick="addChord('A#','#ffa400')">A#</button><br>
+                                    <button onclick="addChord('B','#fff143')">B</button><br>
+                                    <button onclick="addChord('B#','#00bc12')">B#</button><br>
+                                    <button onclick="addChord('C','#3eede7')">C</button><br>
+                                    <button onclick="addChord('C#','#4b5cc4')">C#</button><br>
+                                    <button onclick="addChord('D','#8d4bbb')">D</button><br>
+                                    <button onclick="addChord('D#','#ff4777')">D#</button><br>
+                                    <button onclick="addChord('E','#ca6924')">E</button><br>
+                                    <button onclick="addChord('F','#eacd76')">F</button><br>
+                                    <button onclick="addChord('F#','#fffbf0')">F#</button><br>
+                                    <button onclick="addChord('G','#3de1ad')">G</button><br>
+                                    <button onclick="addChord('G#','#70f3ff')">G#</button><br>
                                 </td>
                                 <td>
-                                    Please select the chord color
+                                    <p id="hint">Please select the chord color</p>
                                     <select id="color" name="color">
                                         <option value="major">Major</option>
                                         <option value="minor">Minor</option>
                                     </select>
                                     <br><br>
-                                    Please select the note group
+                                    <p id="hint">Please select the note group</p> 
                                     <select id="chordGroup" name="chordGroup">
                                         <option value="">---</option>
                                         <option value="-2">-2</option>
@@ -215,7 +235,7 @@
                                         <option value="6">6</option>
                                         <option value="7">7</option>
                                     </select>
-									<p>please select the length</p>
+									<p id="hint">please select the length</p>
                                     <input type="text" size="1" maxlength="1" id="chordLength" name="chordLength"/>
                                 </td>
                             </tr>
@@ -225,45 +245,45 @@
                 </div>
             </td>
             <!-- display window -->
-			<td style="width:1330px;">
-                <div style="overflow-x:scroll;width:1300px;border:solid red 1px;">
+			<td style="width:1480px;background-color:#fffbf0;">
+                <div style="border:solid white 1px;overflow-x:scroll;width:1480px;">
                     <!-- melody display -->
-                    <table id="melodyTable" style="table-layout:fixed;max-width:1300px;border:solid green 1px;">
+                    <table  cellpadding="0" cellspacing="0" id="melodyTable" border="1" table-layout="fixed" style="max-width:1480px;border:solid white 1px;">
                         <th>Melody</th>
                         <tr><input type="text" id="MelodyNameText" />Name</tr>
                         <tr><input type="text" id="MelodyDescriptionText">Description</tr>
                         <tr id="melrow1" height="20px;">
-                            <td>1</td>
+                            <td>Note Length</td>
                         </tr>
                         <tr id="melrow2" height="20px;">
-                            <td>2</td>
+                            <td>Note Block</td>
                         </tr>
                         <tr id="melrow3" height="20px;">
-                            <td>3</td>
+                            <td>Note Name</td>
                         </tr>
                         <tr id="melrow4" height="20px;">
-                            <td>4</td>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
                         </tr>
                     </table>
                 </div>
                 <br><br>
-                <div style="overflow-x:scroll;width:1300px;border:solid red 1px;">
+                <div style="border:solid white 1px;overflow-x:scroll;width:1480px;">
                     <!-- chord display -->
-                    <table border="1" id="chordTable" style="table-layout:fixed;max-width:1300px;border:solid yellow 1px;">
+                    <table cellpadding="0" cellspacing="0" id="chordTable" border="1" table-layout="fixed" style="max-width:1480px;border:solid white 1px;">
                         <th>Score</th>
                         <tr><input type="text" id="ScoreNameText" />Name</tr>
                         <tr><input type="text" id="ScoreDescriptionText">Description</tr>
                         <tr id="chorow1" height="20px;">
-                            <td>5</td>
+                            <td>Chord Length</td>
                         </tr>
                         <tr id="chorow2" height="20px;">
-                            <td>6</td>
+                            <td>Chord Block</td>
                         </tr>
                         <tr id="chorow3" height="20px;">
-                            <td>7</td>
+                            <td>Chord Name</td>
                         </tr>
                         <tr id="chorow4" height="20px;">
-                            <td>8</td>
+                            <td>&nbsp;&nbsp;&nbsp;</td>
                         </tr>
                     </table>
                 </div>
@@ -291,7 +311,10 @@
         </tr>
     </table>
 
-
+    <footer>
+        <p style="padding-top:150px;">Copyright® 2019 He,Yining Zhou,Kaiwen and Shan,Jiaxiang</p>
+        
+	</footer>
 
     <script>
 
