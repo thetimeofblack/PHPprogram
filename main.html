@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head> 
     <meta charset="UTF-8">
     <title>Score Editor</title>
 
     <script>
-        var unitCount=0;
+        var unitCount = 1;
         
         function changeTabNote(){
             if (document.getElementById("melody").style.display == "none"){
@@ -52,11 +52,10 @@
                 var td4 = tr4.insertCell();
                 //td4.setAttribute ("className","tick");
                 td4.colSpan = document.getElementById("noteLength").value;
-                td4.innerHTML = "<button onclick='test()'>delete</button>";
-                
+                alert(unitCount);
+                td4.innerHTML = "<button value='" + unitCount.toString() + "' onclick='deleteNote()'>delete</button>";   
                 //alert(td4.colomn.count);
-
-                unitCount += document.getElementById("noteLength").value;
+                unitCount += parseInt(document.getElementById("noteLength").value);
             }
         }
 
@@ -96,14 +95,26 @@
             }
         }
 
-        function deleteNote(o){
-            o.parentNode.removeChild();
-
+        function deleteNote(){
+            alert(this.value);
+            /* var startCellIndex = this.value;
+            var duration = parseInt(document.getElementById("noteLength").value);
+            var singleIndex = this.parentNode.cells.length - 1;
+            //delete block
+            while(startCellIndex<duration){
+                document.getElementById("melrow2").deleteCell(startCellIndex);
+                startCellIndex++;
+            }
+            
+            //delete single cell
+            document.getElementById("melrow1").deleteCell(singleIndex);
+            document.getElementById("melrow3").deleteCell(singleIndex);
+            document.getElementById("melrow4").deleteCell(singleIndex); */
 
         }
 
         function test(){
-            alert(this.parentNode.cells.index);
+            alert(this.value);
         }
 
 
