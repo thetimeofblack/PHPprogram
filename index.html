@@ -66,7 +66,12 @@
 	</style>
     <script>
             function UserLoginin(){
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange= function(){
+                    if(this.readyState ==4 && this.status==200){
 
+                    }
+                }
             }
             function UserSignUp(){
 
@@ -74,6 +79,8 @@
 
     </script>
     <body>
+
+
         <!-- author:   -->
         <!-- Modal -->
         <div id="UserLogin" class="w3-modal w3-animate-opacity">

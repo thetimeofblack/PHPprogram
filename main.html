@@ -15,7 +15,8 @@
             }
         }
 
-        function changeTabChord(){    
+
+        function changeTabChord(){
             if (document.getElementById("chord").style.display == "none"){
                 document.getElementById("chord").style.display = "block";
                 document.getElementById("melody").style.display = "none";
@@ -133,7 +134,9 @@
                         <button onclick="changeTabNote()">Melody</button>
                         <button onclick="changeTabChord()">Score</button>
                     </div>
+
                     <!-- note pad -->
+
                     <section id="melody" name="melody" style="display:block">
                         <table style="border:solid orange 1px;">
                             <tr>
@@ -284,8 +287,8 @@
                         <input id="userid"     name = "userid"     type ="text"  style ="display:none;"/>
                         <input name="save"  type="submit" style="margin-left:20%;"/>
                     </form>
-                    <input name="getMelody"  type="button" />
-                    <input name="getScore"   type="button" />
+                    <input name="getMelody"  type="button" value = "getMelody"/>
+                    <input name="getScore"   type="button" value = "getScore"/>
                 </div>
             </td>
         </tr>

@@ -7,23 +7,27 @@
  */
 
 include "Main_Class.php";
+
+
+
+
+
 class DBConnection{
 
     private $db ;
 
+
     public function __construct()
     {
         $this->db = new mysqli("localhost" ,"root","heyining", "music");
-
-
     }
+
 
     public function saveUser($user){
         if($this->db){
             $username = $user->getUserName() ;
             $userpassword = $user->getUserPassword();
             $sql = "Insert into user(username, userpassword) values ('".$username."','".$userpassword."')";
-
             $this->db->query($sql);
             echo "Insert successful" ;
             $userid = mysqli_insert_id();
@@ -32,12 +36,11 @@ class DBConnection{
     }
 
 
-    public function saveUserMelody($userid, $melody)
-    {
+
+    public function saveUserMelody($userid, $melody){
         if ($this->db) {
             $notelist = $melody->getChordList();
             $timelist = $melody->getLengthList();
-
             $melodyname = $melody->getName();
             $melodyDescription = $melody->getDescription();
             $notesize = count($notelist);
@@ -53,11 +56,11 @@ class DBConnection{
                     $time = $timelist[$i];
                     $sql2 = "insert into melody (note,length,melodyid) values('".$note."','".$time."','".$melodyid."')";
                     $this->db->query($sql2);
-
                 }
             }
         }
     }
+
 
     public function saveUserScore($userid, $score){
         if ($this->db) {
@@ -82,6 +85,8 @@ class DBConnection{
         }
     }
 
+
+
     public function getUserMelody($userid){
 
         $melodylist = Array();
@@ -102,8 +107,8 @@ class DBConnection{
         }
     }
 
-
     public function getMelodyElement($melodyid){
+
         $melody = new Melody();
         $chordlist = Array();
         $lengthlist = Array();
@@ -125,20 +130,90 @@ class DBConnection{
         return $melody;
     }
 
-    public function getScoreElement(){
-        $score = new Score();
+    public function getUserScore($userid){
+
+        $scorelist = Array();
+        if($this->db) {
+            $sql = "select * from userscore where userid = '".$userid."'";
+            $result = $this->db->query($sql);
+            $i=0;
+            if($result->num_rows>0){
+                while($row = $result->fetch_assoc()){
+                    $scoreid = $row["id"];
+                    $score = getScoreElement($scoreid);
+                    $score->setName($row["scorename"]);
+                    $score->setDescription($row["scoredescription"]);
+                    $scorelist[$i++]=$score;
+                }
+            }
+
+        }
+        return $scorelist;
+
     }
 
-    public function checkUser($userpassword){
+    public function getScoreElement($scoreid){
+        $score = new Score();
+        $notelist = Array();
+        $timelist = Array();
         if($this->db){
-            $sql = "select * from user where username ='".$userpassword."'";
+            $sql = "select * from score where scoreid ='".$scoreid. "'";
+            $result = $this->db->query($sql);
+            if ($result->num_rows > 0) {
+                $i = 0 ;                  // output data of each row
+                while($row = $result->fetch_assoc()) {
+                    $notelist[$i++] = $row['chord'];
+                    $timelist[$i++] = $row['length'];
+                }
+                $score->setNoteList($notelist);
+                $score->setTimeList($timelist);
+            } else {
+                echo "0 results";
+            }
+        }
+        return $score;
+    }
+
+
+    public function checkUser($user){
+
+        if($this->db){
+            $username = $user->getUserName();
+            $userpassword = $user->getUserPassword();
+
+            $sql = "select * from user where username ='".$username."'";
+            $result = $this->db->query($sql);
+            $dbusername = "";
+            $dbuserpassword = "";
+            if ($result->num_rows > 0) {
+                $i = 0 ;                  // output data of each row
+                while($row = $result->fetch_assoc()) {
+                        $dbusername = $row["username"];
+                        $dbuserpassword = $row["userpassword"];
+                }
+
+            } else {
+                echo "0 results";
+            }
+
+            if($username == $dbusername){
+
+                echo "DataBase Successfully";
+            }else {
+                echo "Login in fails" ;
+            }
 
         }
     }
 
+
+
+
+
     public function closeDataBase(){
         $this->db->close() ;
     }
+
 
     private function awake(){
 
