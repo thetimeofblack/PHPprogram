@@ -193,14 +193,14 @@ class DBConnection{
                 }
 
             } else {
-                echo "0 results";
+                return false;
             }
 
             if($username == $dbusername){
 
-                echo "DataBase Successfully";
+                return true;
             }else {
-                echo "Login in fails" ;
+               return false ;
             }
 
         }

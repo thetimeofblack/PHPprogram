@@ -5,14 +5,17 @@
  * Date: 2019/1/10
  * Time: 11:14
  */
-
-    $username =  $_REQUEST["username"];
+    $sendArray = $_POST["sendArray"];
+    $sendArray  = json_decode($sendArray);
+    $username =  $sendArray["username"];
     $userpassword = $_REQUEST["userpassword"];
     $user= new User();
     $user->setUserName($username);
     $user->setUserPassword($userpassword);
     $dbobject = new DBConnection();
-    $dbobject->checkUser($user);
+    $returnArray = array();
+    $returnArray["check"]= $dbobject->checkUser($user);
 
+    echo json_encode($returnArray);
 
 ?>
