@@ -7,7 +7,7 @@
 
     <script>
         var unitCount;
-        
+        var userid ;
         function changeTabNote(){
             if (document.getElementById("melody").style.display == "none"){
                 document.getElementById("melody").style.display = "block";
@@ -366,7 +366,23 @@
         }
 
         function getMelody(){
+            if (str.length == 0) {
+                document.getElementById("txtHint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var melodylist = this.responseText ;
+                        melodylist = JSON.parse(melodylist);
+                        for(var i = 0 ; i<melodylist.length; i++){
 
+                        }
+                    }
+                };
+                xmlhttp.open("POST", "getMelody.php?userid=" + userid, true);
+                xmlhttp.send();
+            }
         }
 
         function getScore(){
