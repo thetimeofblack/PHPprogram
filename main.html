@@ -150,11 +150,10 @@
                 <div style="text-align:center;">
                     <div align="center">
                         <button style="width:140px;height:70px;font-size:20px;font-family:Arial Black;font-weight:bold;color:black;background-color:white;" onclick="changeTabNote()">Melody</button>
-                        <button style="width:140px;height:70px;font-size:20px;font-family:Arial Black;font-weight:bold;color:black;background-color:white;" onclick="changeTabChord()">Score</button>
+                        <button style="width:140px;height:70px;font-size:20px;font-family:Arial Black;font-weight:bold;color:black;background-color:white;" onclick="changeTabChord()">Chord</button>
                     </div>
-
+                    <br><br>
                     <!-- note pad -->
-
                     <section id="melody" name="melody" style="text-align:center;display:block;">
                         <table align="center" style="width:300px;border:solid black 2px;text-align:center;">
                             <tr>
@@ -169,7 +168,7 @@
                                     <button onclick="addNote('D#','#ff4777')">D#</button><br>
                                     <button onclick="addNote('E','#ca6924')">E</button><br>
                                     <button onclick="addNote('F','#eacd76')">F</button><br>
-                                    <button onclick="addNote('F#','#fffbf0')">F#</button><br>
+                                    <button onclick="addNote('F#','#d6c6af')">F#</button><br>
                                     <button onclick="addNote('G','#3de1ad')">G</button><br>
                                     <button onclick="addNote('G#','#70f3ff')">G#</button><br>
                                 </td>
@@ -211,7 +210,7 @@
                                     <button onclick="addChord('D#','#ff4777')">D#</button><br>
                                     <button onclick="addChord('E','#ca6924')">E</button><br>
                                     <button onclick="addChord('F','#eacd76')">F</button><br>
-                                    <button onclick="addChord('F#','#fffbf0')">F#</button><br>
+                                    <button onclick="addChord('F#','#d6c6af')">F#</button><br>
                                     <button onclick="addChord('G','#3de1ad')">G</button><br>
                                     <button onclick="addChord('G#','#70f3ff')">G#</button><br>
                                 </td>
@@ -222,7 +221,7 @@
                                         <option value="minor">Minor</option>
                                     </select>
                                     <br><br>
-                                    <p id="hint">Please select the note group</p>
+                                    <p id="hint">Please select the chord group</p>
                                     <select id="chordGroup" name="chordGroup">
                                         <option value="">---</option>
                                         <option value="-2">-2</option>
@@ -246,13 +245,14 @@
                 </div>
             </td>
             <!-- display window -->
-			<td style="width:1480px;background-color:#fffbf0;">
-                <div style="border:solid white 1px;overflow-x:scroll;width:1480px;">
+            <td style="width:1070px;background-color:#fffbf0;">
+                <span id="hint">Name: </span><input type="text" id="MelodyNameText" />&nbsp;&nbsp;&nbsp;
+                <span id="hint">Description: </span><input type="text" id="MelodyDescriptionText"/>
+                <br><br>
+                <div style="border:solid white 1px;overflow-x:scroll;width:1070px;">
                     <!-- melody display -->
-                    <table cellpadding="0" cellspacing="0" id="melodyTable" border="1" table-layout="fixed" style="max-width:1480px;border:solid white 1px;">
+                    <table cellpadding="0" cellspacing="0" id="melodyTable" border="1" table-layout="fixed" style="max-width:1070px;border:solid white 1px;">
                         <th>Melody</th>
-                        <tr><input type="text" id="MelodyNameText" />Name</tr>
-                        <tr><input type="text" id="MelodyDescriptionText">Description</tr>
                         <tr id="melrow1" height="20px;">
                             <td>Note Length</td>
                         </tr>
@@ -268,12 +268,10 @@
                     </table>
                 </div>
                 <br><br>
-                <div style="border:solid white 1px;overflow-x:scroll;width:1480px;">
+                <div style="border:solid white 1px;overflow-x:scroll;width:1070px;">
                     <!-- chord display -->
-                    <table cellpadding="0" cellspacing="0" id="chordTable" border="1" table-layout="fixed" style="max-width:1480px;border:solid white 1px;">
-                        <th>Score</th>
-                        <tr><input type="text" id="ScoreNameText" />Name</tr>
-                        <tr><input type="text" id="ScoreDescriptionText">Description</tr>
+                    <table cellpadding="0" cellspacing="0" id="chordTable" border="1" table-layout="fixed" style="max-width:1070px;border:solid white 1px;">
+                        <th>Chord</th>
                         <tr id="chorow1" height="20px;">
                             <td>Chord Length</td>
                         </tr>
@@ -305,8 +303,22 @@
                         <input id="userid"     name = "userid"     type ="text"  style ="display:none;"/>
                         <input name="save"  type="submit" style="margin-left:20%;"/>
                     </form>
-                        <input name="getMelody"  type="button"      />
-                        <input name="getScore"   type="button"      />
+                        <input name="getMelody"  type="button"  value="getMelody"    />
+                        <input name="getScore"   type="button"  value="getChord"      />
+                </div>
+            </td>
+            <td style="width:400px;background-color:#fffbf0;">
+                <div style="text-align:center;">
+                    <section  id="userInfo" name="userInfo" style="text-align:center;display:block;">
+                        <!-- display user information get from db -->
+                        Username: <!-- require ajax code to get from DB --><br><br><br>
+                        <table name="userTable" align="center" style="width:300px;border:solid black 2px;text-align:center;">
+                            <tr>
+                                <th>Score Name</th>
+                            </tr>
+                            <!-- use js to add new tr and put DATA into td -->
+                        </table>
+                    </section>
                 </div>
             </td>
         </tr>
