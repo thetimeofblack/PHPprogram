@@ -65,7 +65,7 @@ class DBConnection{
     public function saveUserScore($userid, $score){
         if ($this->db) {
             $name = $score->getName();
-            $description = $score->getDescription();
+            $description = "hello";
             $notelist = $score->getNoteList();
             $timelist = $score->getTimeList();
             $notesize = count($notelist);
@@ -73,11 +73,11 @@ class DBConnection{
                 $sql = "insert into userscore(userid,scorename, scoredescription) values('" . $userid ."','".$name."','".$description."')";
                 $result = $this->db->query($sql);
 
-                $melodyid = $this->db->insert_id;
+                $scoreid = $this->db->insert_id;
                 for ($i = 0; $i < $notesize; $i++) {
                     $note = $notelist[$i];
                     $time = $timelist[$i];
-                    $sql2 = "insert into melody (note,length,melodyid) values('".$note."','".$time."','".$melodyid."')";
+                    $sql2 = "insert into score (chord,length,scoreid) values('".$note."','".$time."','".$scoreid."')";
                     $this->db->query($sql2);
 
                 }
@@ -96,18 +96,26 @@ class DBConnection{
                 $i=0;
                 if($result->num_rows>0){
                     while($row = $result->fetch_assoc()){
-                         $melodyid = $row["id"];
-                         $melody = getMelodyElement($melodyid);
-                         $melody->setName($row["melodyname"]);
-                         $melody->setDescription($row["melodydescription"]);
-                         $melodylist[$i++]=$melody;
+                        $melodyid = $row["id"];
+                        //echo $melodyid;
+                        $melody = $this->getMelodyElement($melodyid);
+                        $melody->setName($row["melodyname"]);
+                        $melody->setDescription($row["melodydescription"]);
+                        //echo $melody->getChordList();
+                        $melody = (array)$melody;
+
+                        $melodyjson = json_encode($melody);
+                        //echo $melodyjson ;
+                        $melodylist[$i++]=$melodyjson;
                     }
                 }
+
+                //var_dump($melodylist);
                 return $melodylist;
         }
     }
 
-    public function getMelodyElement($melodyid){
+    private function getMelodyElement($melodyid){
 
         $melody = new Melody();
         $chordlist = Array();
@@ -118,13 +126,14 @@ class DBConnection{
             if ($result->num_rows > 0) {
                 $i = 0 ;                  // output data of each row
                 while($row = $result->fetch_assoc()) {
-                   $chordlist[$i++] = $row['note'];
-                   $lengthlist[$i++] = $row['length'];
+                   $chordlist[$i] = $row['note'];
+                   $lengthlist[$i] = $row['length'];
+                   $i = $i+1;
                 }
-                $melody->setChordList($chordlist);
-                $melody->setLengthList($lengthlist);
+                $melody->setChordList(json_encode($chordlist));
+                $melody->setLengthList(json_encode($lengthlist));
             } else {
-                echo "0 results";
+                //echo "0 results";
             }
         }
         return $melody;
@@ -140,10 +149,13 @@ class DBConnection{
             if($result->num_rows>0){
                 while($row = $result->fetch_assoc()){
                     $scoreid = $row["id"];
-                    $score = getScoreElement($scoreid);
+                    $score = $this->getScoreElement($scoreid);
                     $score->setName($row["scorename"]);
                     $score->setDescription($row["scoredescription"]);
-                    $scorelist[$i++]=$score;
+                    $score = $this->object_to_Array($score);
+                    //var_dump( $score);
+
+                    $scorelist[$i++]=json_encode($score);
                 }
             }
 
@@ -152,7 +164,7 @@ class DBConnection{
 
     }
 
-    public function getScoreElement($scoreid){
+    private function getScoreElement($scoreid){
         $score = new Score();
         $notelist = Array();
         $timelist = Array();
@@ -162,13 +174,14 @@ class DBConnection{
             if ($result->num_rows > 0) {
                 $i = 0 ;                  // output data of each row
                 while($row = $result->fetch_assoc()) {
-                    $notelist[$i++] = $row['chord'];
-                    $timelist[$i++] = $row['length'];
+                    $notelist[$i] = $row['chord'];
+                    $timelist[$i] = $row['length'];
+                    $i = $i+1;
                 }
-                $score->setNoteList($notelist);
-                $score->setTimeList($timelist);
+                $score->setNoteList(json_encode($notelist));
+                $score->setTimeList(json_encode($timelist));
             } else {
-                echo "0 results";
+                //echo "0 results";
             }
         }
         return $score;
@@ -206,7 +219,19 @@ class DBConnection{
         }
     }
 
+    private function object_to_Array($object){
+        $object = (array)$object;
+        foreach ($object as $k => $v) {
+            if (gettype($v) == 'resource') {
+                return;
+            }
+            if (gettype($v) == 'object' || gettype($v) == 'array') {
+                $object[$k] = (array)object_to_array($v);
+            }
+        }
+        return $object ;
 
+    }
 
 
 
