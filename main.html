@@ -52,8 +52,8 @@
                 var td4 = tr4.insertCell();
                 //td4.setAttribute ("className","tick");
                 td4.colSpan = document.getElementById("noteLength").value;
-                alert(unitCount);
-                alert(td4.parentNode.cells.length - 1);
+                //alert(unitCount);
+                //alert(td4.parentNode.cells.length - 1);
                 td4.innerHTML = "<button onclick='deleteNote(this)'>delete</button>";
                 //alert(td4.colomn.count);
                 //unitCount += parseInt(document.getElementById("noteLength").value);
@@ -92,7 +92,7 @@
                 var td8 = tr8.insertCell();
                 //td8.setAttribute ("className","tick");
                 td8.colSpan = document.getElementById("chordLength").value;
-                td8.innerHTML = "<button>delete</button>";
+                td8.innerHTML = "<button onclick='deleteChord(this)'>delete</button>";
             }
         }
 
@@ -109,9 +109,9 @@
             //parseInt(document.getElementById("melrow2").cells.length - document.getElementById("melodyTable").rows[1].cells[o.parentNode.parentNode.cells.length - 1].innerHTML);
             var singleIndex = parseInt(o.parentNode.cellIndex);
             var duration = parseInt(document.getElementById("melodyTable").rows[1].cells[o.parentNode.cellIndex].innerHTML);
-            alert("startCellIndex" + startCellIndex);
-            alert("singleIndex" + singleIndex);
-            alert("duration" + duration);
+            //alert("startCellIndex" + startCellIndex);
+            //alert("singleIndex" + singleIndex);
+            //alert("duration" + duration);
             
             //delete single cell
             document.getElementById("melrow1").deleteCell(o.parentNode.cellIndex);
@@ -124,6 +124,32 @@
             }
         }
 
+            function deleteChord(o){
+            //alert(o.parentNode.cellIndex)
+            //alert("name" + o.name);
+            //alert("id" + o.id)
+            //alert("length"+(o.parentNode.parentNode.cells.length-1));
+            //alert("value" + document.getElementById("melodyTable").rows[1].cells[o.id].innerHTML);
+            var startCellIndex = 1;
+            for(i=1;i<o.parentNode.cellIndex;i++){
+                startCellIndex = startCellIndex + parseInt(document.getElementById("chordTable").rows[1].cells[i].innerHTML); 
+            }
+            var singleIndex = parseInt(o.parentNode.cellIndex);
+            var duration = parseInt(document.getElementById("chordTable").rows[1].cells[o.parentNode.cellIndex].innerHTML);
+            //alert("startCellIndex" + startCellIndex);
+            //alert("singleIndex" + singleIndex);
+            //alert("duration" + duration);
+            
+            //delete single cell
+            document.getElementById("chorow1").deleteCell(o.parentNode.cellIndex);
+            document.getElementById("chorow3").deleteCell(o.parentNode.cellIndex);
+            document.getElementById("chorow4").deleteCell(o.parentNode.cellIndex);
+
+            //delete block
+            for(i=0;i<duration;i++){
+                document.getElementById("chorow2").deleteCell(startCellIndex);
+            }
+        }
         function test(){
             alert(this.name);
 
