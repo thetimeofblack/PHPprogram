@@ -53,7 +53,8 @@
                 //td4.setAttribute ("className","tick");
                 td4.colSpan = document.getElementById("noteLength").value;
                 alert(unitCount);
-                td4.innerHTML = "<button name='"+unitCount.toString()+"' onclick='deleteNote(this)'>delete</button>";
+                alert(td4.parentNode.cells.length - 1);
+                td4.innerHTML = "<button name='"+unitCount.toString()+"' id='" + (td4.parentNode.cells.length-1) + "' onclick='deleteNote(this)'>delete</button>";
                 //alert(td4.colomn.count);
                 unitCount += parseInt(document.getElementById("noteLength").value);
             }
@@ -96,21 +97,26 @@
         }
 
         function deleteNote(o){
-            alert(o.name);
-            /* var startCellIndex = this.value;
-            var duration = parseInt(document.getElementById("noteLength").value);
-            var singleIndex = this.parentNode.cells.length - 1;
-            //delete block
-            while(startCellIndex<duration){
-                document.getElementById("melrow2").deleteCell(startCellIndex);
-                startCellIndex++;
-            }
+            //alert("name" + o.name);
+            //alert("id" + o.id)
+            //alert("length"+(o.parentNode.parentNode.cells.length-1));
+            //alert("value" + document.getElementById("melodyTable").rows[1].cells[o.id].innerHTML);
+            var startCellIndex = parseInt(o.name);
+            var singleIndex = parseInt(o.parentNode.parentNode.cells.length - 1);
+            var duration = parseInt(document.getElementById("melodyTable").rows[1].cells[o.id].innerHTML);
+            alert("startCellIndex" + startCellIndex);
+            alert("singleIndex" + singleIndex);
+            alert("duration" + duration);
             
             //delete single cell
-            document.getElementById("melrow1").deleteCell(singleIndex);
-            document.getElementById("melrow3").deleteCell(singleIndex);
-            document.getElementById("melrow4").deleteCell(singleIndex); */
+            document.getElementById("melrow1").deleteCell((o.parentNode.parentNode.cells.length)-1);
+            document.getElementById("melrow3").deleteCell((o.parentNode.parentNode.cells.length)-1);
+            document.getElementById("melrow4").deleteCell((o.parentNode.parentNode.cells.length)-1);
 
+            //delete block
+            for(i=0;i<duration;i++){
+                document.getElementById("melrow2").deleteCell(startCellIndex);
+            }
         }
 
         function test(){
