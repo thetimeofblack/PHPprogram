@@ -54,9 +54,9 @@
                 td4.colSpan = document.getElementById("noteLength").value;
                 alert(unitCount);
                 alert(td4.parentNode.cells.length - 1);
-                td4.innerHTML = "<button name='"+unitCount.toString()+"' id='" + (td4.parentNode.cells.length-1) + "' onclick='deleteNote(this)'>delete</button>";
+                td4.innerHTML = "<button onclick='deleteNote(this)'>delete</button>";
                 //alert(td4.colomn.count);
-                unitCount += parseInt(document.getElementById("noteLength").value);
+                //unitCount += parseInt(document.getElementById("noteLength").value);
             }
         }
 
@@ -97,21 +97,26 @@
         }
 
         function deleteNote(o){
+            //alert(o.parentNode.cellIndex)
             //alert("name" + o.name);
             //alert("id" + o.id)
             //alert("length"+(o.parentNode.parentNode.cells.length-1));
             //alert("value" + document.getElementById("melodyTable").rows[1].cells[o.id].innerHTML);
-            var startCellIndex = parseInt(o.name);
-            var singleIndex = parseInt(o.parentNode.parentNode.cells.length - 1);
-            var duration = parseInt(document.getElementById("melodyTable").rows[1].cells[o.id].innerHTML);
+            var startCellIndex = 1;
+            for(i=1;i<o.parentNode.cellIndex;i++){
+                startCellIndex = startCellIndex + parseInt(document.getElementById("melodyTable").rows[1].cells[i].innerHTML); 
+            }
+            //parseInt(document.getElementById("melrow2").cells.length - document.getElementById("melodyTable").rows[1].cells[o.parentNode.parentNode.cells.length - 1].innerHTML);
+            var singleIndex = parseInt(o.parentNode.cellIndex);
+            var duration = parseInt(document.getElementById("melodyTable").rows[1].cells[o.parentNode.cellIndex].innerHTML);
             alert("startCellIndex" + startCellIndex);
             alert("singleIndex" + singleIndex);
             alert("duration" + duration);
             
             //delete single cell
-            document.getElementById("melrow1").deleteCell((o.parentNode.parentNode.cells.length)-1);
-            document.getElementById("melrow3").deleteCell((o.parentNode.parentNode.cells.length)-1);
-            document.getElementById("melrow4").deleteCell((o.parentNode.parentNode.cells.length)-1);
+            document.getElementById("melrow1").deleteCell(o.parentNode.cellIndex);
+            document.getElementById("melrow3").deleteCell(o.parentNode.cellIndex);
+            document.getElementById("melrow4").deleteCell(o.parentNode.cellIndex);
 
             //delete block
             for(i=0;i<duration;i++){
