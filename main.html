@@ -6,22 +6,22 @@
     <title>Score Editor</title>
 
     <script>
-
         window.onload= function(){
             var userid = "23";
             var xmlhttp =  new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
-                if(this.readyState ==4 && this.status == 200){
+                if(this.readyState == 4 && this.status == 200){
 
-                    var userinfo = document.getElementById("userInfo");
-
+                    //var userinfo = document.getElementById("userInfo");
                    // alert(userid);
                     //alert(this.responseText);
+                    
                     var receiveText = JSON.parse(this.responseText);
                     var melodylist = receiveText["melodylist"];
                     var scorelist = receiveText["scorelist"];
-                    melodylist = JSON.parse(melodylist);
-                    scorelist = JSON.parse(scorelist);
+                    melodylist = JSON.parse(melodylist);//complex array of melody
+                    scorelist = JSON.parse(scorelist);//complex array of chord
+                    //array of melody 1.length & 2.note name
                     for (var i =0 ;i < melodylist.length ; i++){
                         var melody = melodylist[i];
                         //alert(melody);
@@ -32,16 +32,16 @@
                             keys[start++] = j;
                         }
 
-                        alert(keys[2]);
-                        alert(melodyobject[keys[2]]);
-                        alert(keys[1]);
-                        alert(melodyobject[keys[1]]);
-                        var chordlist = melodylist[keys[2]];
-                        var lengthlist = melodylist[keys[1]];
-                        for(var s=0 ;s<chordlist.length; s++){
+                        //alert(keys[2]);
+                        //alert(melodyobject[keys[2]]);
+                        //alert(keys[1]);
+                        //alert(melodyobject[keys[1]]);
+                        var notelist = melodylist[keys[2]];
+                        var nlengthlist = melodylist[keys[1]];
+                        var namelist = melodylist[keys[0]];
+                        /* for(var s=0 ;s<notelist.length; s++){
 
-
-                        }
+                        } */
 
                         //for (var s = 0 ; s<)
                         // alert(melodyobject.ChordList);
@@ -50,12 +50,44 @@
                     //var melody = melodylist[0];
                     // var melody = JSON.parse(melody);
                     //alert(melody);
+
+                    //array of chord 1.length & 2.note name
+                    for (var i =0 ;i < scorelist.length ; i++){
+                        var chord = scorelist[i];
+                        //alert(chord);
+                        var chordobject = JSON.parse(chord);
+                        var start = 0 ;
+                        var keys = new Array() ;
+                        for(var j in chordobject){
+                            keys[start++] = j;
+                        }
+
+                        //alert(keys[2]);
+                        //alert(melodyobject[keys[2]]);
+                        //alert(keys[1]);
+                        //alert(melodyobject[keys[1]]);
+                        var chordlist = melodylist[keys[2]];
+                        var clengthlist = melodylist[keys[1]];
+                        /* for(var s=0 ;s<chordlist.length; s++){
+
+
+                        } */
+                    }
+
+                    //start to put data into table
+                    //display username
+                    document.getElementById("userName").innerHTML = userid;
+                    //display name of scores under this user
+                    var newRow = document.getElementById("userTable").insertRow();
+                    var newCell = newRow.insertCell();
+                    for (i=0;i<namelist.length;i++){
+                        newCell.innerHTML = namelist[i].value;
+                    }
                 }
             };
             xmlhttp.open("GET" , "getUserScore.php?userid=" +userid , true );
             xmlhttp.send();
         }
-        var unitCount = 1;
         
         function changeTabNote(){
             if (document.getElementById("melody").style.display == "none"){
@@ -408,7 +440,7 @@
                 <div style="text-align:center;">
                     <section  id="userInfo" name="userInfo" style="text-align:center;display:block;">
                         <!-- display user information get from db -->
-                        Username: <!-- require ajax code to get from DB --><br><br><br>
+                        Username: <label id="userName"></label><br><br><br>
                         <table name="userTable" align="center" style="width:300px;border:solid black 2px;text-align:center;">
                             <tr id="userScoreList">
                                 <th>Score Name</th>
