@@ -98,9 +98,10 @@ class Melody {
             $this->description = $description ;
     }
 
-    public function getDescription(){
+   public function getDescription(){
             return $this->description ;
-    }
+
+   }
 
     public function setName($name){
             $this->name = $name;

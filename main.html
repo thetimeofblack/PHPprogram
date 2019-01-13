@@ -6,6 +6,55 @@
     <title>Score Editor</title>
 
     <script>
+
+        window.onload= function(){
+            var userid = "23";
+            var xmlhttp =  new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState ==4 && this.status == 200){
+
+                    var userinfo = document.getElementById("userInfo");
+
+                   // alert(userid);
+                    //alert(this.responseText);
+                    var receiveText = JSON.parse(this.responseText);
+                    var melodylist = receiveText["melodylist"];
+                    var scorelist = receiveText["scorelist"];
+                    melodylist = JSON.parse(melodylist);
+                    scorelist = JSON.parse(scorelist);
+                    for (var i =0 ;i < melodylist.length ; i++){
+                        var melody = melodylist[i];
+                        //alert(melody);
+                        var melodyobject = JSON.parse(melody);
+                        var start = 0 ;
+                        var keys = new Array() ;
+                        for(var j in melodyobject){
+                            keys[start++] = j;
+                        }
+
+                        alert(keys[2]);
+                        alert(melodyobject[keys[2]]);
+                        alert(keys[1]);
+                        alert(melodyobject[keys[1]]);
+                        var chordlist = melodylist[keys[2]];
+                        var lengthlist = melodylist[keys[1]];
+                        for(var s=0 ;s<chordlist.length; s++){
+
+
+                        }
+
+                        //for (var s = 0 ; s<)
+                        // alert(melodyobject.ChordList);
+                    }
+                    //var melodylist = receiveText["melodylist"];
+                    //var melody = melodylist[0];
+                    // var melody = JSON.parse(melody);
+                    //alert(melody);
+                }
+            };
+            xmlhttp.open("GET" , "getUserScore.php?userid=" +userid , true );
+            xmlhttp.send();
+        }
         var unitCount = 1;
         
         function changeTabNote(){
@@ -30,7 +79,6 @@
                 td1.colSpan = document.getElementById("noteLength").value;
                 td1.innerHTML = document.getElementById("noteLength").value;
                 //alert(tr1.cells.length);
-
                 var tr2 = document.getElementById("melrow2");
                 for (i=0;i<document.getElementById("noteLength").value;i++){
                     var td2 = tr2.insertCell();
@@ -362,7 +410,7 @@
                         <!-- display user information get from db -->
                         Username: <!-- require ajax code to get from DB --><br><br><br>
                         <table name="userTable" align="center" style="width:300px;border:solid black 2px;text-align:center;">
-                            <tr>
+                            <tr id="userScoreList">
                                 <th>Score Name</th>
                             </tr>
                             <!-- use js to add new tr and put DATA into td -->

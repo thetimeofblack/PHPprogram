@@ -15,7 +15,7 @@ if(validateInput()) {
         $melody = new Melody();
         $score = new Score();
         $userid = "";
-        var_dump($_POST) ;
+        //var_dump($_POST) ;
         $chordlist = $_POST["chordlist"];
         $timelist = $_POST["timelist"];
         $notelist = $_POST["notelist"];
