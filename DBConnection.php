@@ -239,6 +239,9 @@ class DBConnection{
         $this->db->close() ;
     }
 
+    public function getUser($userid){
+
+    }
 
     private function awake(){
 

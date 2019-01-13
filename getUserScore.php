@@ -19,5 +19,6 @@
     //echo $sendArray["scorelist"];
     $sendArray = json_encode($sendArray);
     echo $sendArray ;
+    $dbobject->closeDataBase();
 
     ?>
