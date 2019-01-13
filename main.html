@@ -78,9 +78,9 @@
                     //display username
                     document.getElementById("userName").innerHTML = userid;
                     //display name of scores under this user
-                    var newRow = document.getElementById("userTable").insertRow();
-                    var newCell = newRow.insertCell();
                     for (i=0;i<namelist.length;i++){
+                        var newRow = document.getElementById("userTable").insertRow();
+                        var newCell = newRow.insertCell();
                         newCell.innerHTML = namelist[i].value;
                     }
                 }
