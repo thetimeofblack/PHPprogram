@@ -44,7 +44,7 @@
                         alert("user score name list: " + name);
 
                         //display name of scores under this user
-                        var newRow = document.getElementById("userTable").insertRow();
+                        var newRow = document.getElementsByName("userTable").insertRow();
                         var newCell = newRow.insertCell();
                         newCell.innerHTML = name.value;
 
