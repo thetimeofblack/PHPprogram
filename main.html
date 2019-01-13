@@ -44,7 +44,7 @@
                         alert("user score name list: " + name);
 
                         //display name of scores under this user
-                        var newRow = document.getElementsByName("userTable").insertRow();
+                        var newRow = document.getElementById("userTable").insertRow();
                         var newCell = newRow.insertCell();
                         newCell.innerHTML = name.value;
 
@@ -447,7 +447,7 @@
                     <section  id="userInfo" name="userInfo" style="text-align:center;display:block;">
                         <!-- display user information get from db -->
                         Username: <label id="userName"></label><br><br><br>
-                        <table name="userTable" align="center" style="width:300px;border:solid black 2px;text-align:center;">
+                        <table id="userTable" align="center" style="width:300px;border:solid black 2px;text-align:center;">
                             <tr id="userScoreList">
                                 <th>Score Name</th>
                             </tr>
