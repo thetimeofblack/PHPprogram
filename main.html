@@ -38,10 +38,16 @@
                         //alert(melodyobject[keys[1]]);
                         var notelist = melodyobject[keys[2]];
                         var nlengthlist = melodyobject[keys[1]];
-                        var namelist = melodyobject[keys[3]];
+                        var name = melodyobject[keys[3]];
                         alert("melody list: " + notelist);
                         alert("melody length list: " + nlengthlist);
-                        alert("user score name list: " + namelist);
+                        alert("user score name list: " + name);
+
+                        //display name of scores under this user
+                        var newRow = document.getElementById("userTable").insertRow();
+                        var newCell = newRow.insertCell();
+                        newCell.innerHTML = namelist[i].value;
+                        
                         /* for(var s=0 ;s<notelist.length; s++){
 
                         } */
@@ -82,12 +88,7 @@
                     //start to put data into table
                     //display username
                     document.getElementById("userName").innerHTML = userid;
-                    //display name of scores under this user
-                    for (i=0;i<namelist.length;i++){
-                        var newRow = document.getElementById("userTable").insertRow();
-                        var newCell = newRow.insertCell();
-                        newCell.innerHTML = namelist[i].value;
-                    }
+                    
                 }
             };
             xmlhttp.open("GET" , "getUserScore.php?userid=" +userid , true );
