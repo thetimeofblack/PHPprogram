@@ -6,94 +6,6 @@
     <title>Score Editor</title>
 
     <script>
-        window.onload= function(){
-            var userid = "23";
-            var xmlhttp =  new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function(){
-                if(this.readyState == 4 && this.status == 200){
-
-                    //var userinfo = document.getElementById("userInfo");
-                   // alert(userid);
-                    //alert(this.responseText);
-                    
-                    var receiveText = JSON.parse(this.responseText);
-                    var melodylist = receiveText["melodylist"];
-                    var scorelist = receiveText["scorelist"];
-                    melodylist = JSON.parse(melodylist);//complex array of melody
-                    scorelist = JSON.parse(scorelist);//complex array of chord
-                    //array of melody 1.length & 2.note name
-                    for (var i =0 ;i < melodylist.length ; i++){
-                        var melody = melodylist[i];
-                        //alert(melody);
-                        var melodyobject = JSON.parse(melody);
-                        var start = 0 ;
-                        var keys = new Array() ;
-                        for(var j in melodyobject){
-                            keys[start++] = j;
-                        }
-
-                        //alert(keys[2]);
-                        //alert(melodyobject[keys[2]]);
-                        //alert(keys[1]);
-                        //alert(melodyobject[keys[1]]);
-                        var notelist = melodyobject[keys[2]];
-                        var nlengthlist = melodyobject[keys[1]];
-                        var name = melodyobject[keys[3]];
-                        alert("melody list: " + notelist);
-                        alert("melody length list: " + nlengthlist);
-                        alert("user score name list: " + name);
-
-                        //display name of scores under this user
-                        var newRow = document.getElementById("userTable").insertRow();
-                        var newCell = newRow.insertCell();
-                        newCell.innerHTML = name.value;
-
-                        /* for(var s=0 ;s<notelist.length; s++){
-
-                        } */
-
-                        //for (var s = 0 ; s<)
-                        // alert(melodyobject.ChordList);
-                    }
-                    //var melodylist = receiveText["melodylist"];
-                    //var melody = melodylist[0];
-                    // var melody = JSON.parse(melody);
-                    //alert(melody);
-
-                    //array of chord 1.length & 2.note name
-                    for (var i =0 ;i < scorelist.length ; i++){
-                        var chord = scorelist[i];
-                        //alert(chord);
-                        var chordobject = JSON.parse(chord);
-                        var start = 0 ;
-                        var keys = new Array() ;
-                        for(var j in chordobject){
-                            keys[start++] = j;
-                        }
-
-                        //alert(keys[2]);
-                        //alert(melodyobject[keys[2]]);
-                        //alert(keys[1]);
-                        //alert(melodyobject[keys[1]]);
-                        var chordlist = chordobject[keys[2]];
-                        var clengthlist = chordobject[keys[1]];
-                        alert("chord list: " + chordlist);
-                        alert("chord length list: " + clengthlist);
-                        /* for(var s=0 ;s<chordlist.length; s++){
-
-
-                        } */
-                    }
-
-                    //start to put data into table
-                    //display username
-                    document.getElementById("userName").innerHTML = userid;
-                    
-                }
-            };
-            xmlhttp.open("GET" , "getUserScore.php?userid=" +userid , true );
-            xmlhttp.send();
-        }
         
         function changeTabNote(){
             if (document.getElementById("melody").style.display == "none"){
@@ -557,7 +469,94 @@
 
         }
 
+                window.onload= function(){
+            var userid = "23";
+            var xmlhttp =  new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function(){
+                if(this.readyState == 4 && this.status == 200){
 
+                    //var userinfo = document.getElementById("userInfo");
+                   // alert(userid);
+                    //alert(this.responseText);
+                    
+                    var receiveText = JSON.parse(this.responseText);
+                    var melodylist = receiveText["melodylist"];
+                    var scorelist = receiveText["scorelist"];
+                    melodylist = JSON.parse(melodylist);//complex array of melody
+                    scorelist = JSON.parse(scorelist);//complex array of chord
+                    //array of melody 1.length & 2.note name
+                    for (var i =0 ;i < melodylist.length ; i++){
+                        var melody = melodylist[i];
+                        //alert(melody);
+                        var melodyobject = JSON.parse(melody);
+                        var start = 0 ;
+                        var keys = new Array() ;
+                        for(var j in melodyobject){
+                            keys[start++] = j;
+                        }
+
+                        //alert(keys[2]);
+                        //alert(melodyobject[keys[2]]);
+                        //alert(keys[1]);
+                        //alert(melodyobject[keys[1]]);
+                        var notelist = melodyobject[keys[2]];
+                        var nlengthlist = melodyobject[keys[1]];
+                        var name = melodyobject[keys[3]];
+                        alert("melody list: " + notelist);
+                        alert("melody length list: " + nlengthlist);
+                        alert("user score name list: " + name);
+
+                        //display name of scores under this user
+                        var newRow = document.getElementById("userTable").insertRow();
+                        var newCell = newRow.insertCell();
+                        newCell.innerHTML = name.value;
+
+                        /* for(var s=0 ;s<notelist.length; s++){
+
+                        } */
+
+                        //for (var s = 0 ; s<)
+                        // alert(melodyobject.ChordList);
+                    }
+                    //var melodylist = receiveText["melodylist"];
+                    //var melody = melodylist[0];
+                    // var melody = JSON.parse(melody);
+                    //alert(melody);
+
+                    //array of chord 1.length & 2.note name
+                    for (var i =0 ;i < scorelist.length ; i++){
+                        var chord = scorelist[i];
+                        //alert(chord);
+                        var chordobject = JSON.parse(chord);
+                        var start = 0 ;
+                        var keys = new Array() ;
+                        for(var j in chordobject){
+                            keys[start++] = j;
+                        }
+
+                        //alert(keys[2]);
+                        //alert(melodyobject[keys[2]]);
+                        //alert(keys[1]);
+                        //alert(melodyobject[keys[1]]);
+                        var chordlist = chordobject[keys[2]];
+                        var clengthlist = chordobject[keys[1]];
+                        alert("chord list: " + chordlist);
+                        alert("chord length list: " + clengthlist);
+                        /* for(var s=0 ;s<chordlist.length; s++){
+
+
+                        } */
+                    }
+
+                    //start to put data into table
+                    //display username
+                    document.getElementById("userName").innerHTML = userid;
+                    
+                }
+            };
+            xmlhttp.open("GET" , "getUserScore.php?userid=" +userid , true );
+            xmlhttp.send();
+        }
         </script>
     </body>
 </html>
