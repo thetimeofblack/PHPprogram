@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>convert test</title>
+    <!-- midi.js css -->
+    <link href="./css/MIDIPlayer.css" rel="stylesheet" type="text/css" />
+    <!-- shim -->
+    <script src="../inc/shim/Base64.js" type="text/javascript"></script>
+    <script src="../inc/shim/Base64binary.js" type="text/javascript"></script>
+    <script src="../inc/shim/WebAudioAPI.js" type="text/javascript"></script>
+    <script src="../inc/shim/WebMIDIAPI.js" type="text/javascript"></script>
+    <!-- jasmid package -->
+    <script src="../inc/jasmid/stream.js"></script>
+    <script src="../inc/jasmid/midifile.js"></script>
+    <script src="../inc/jasmid/replayer.js"></script>
+    <!-- midi.js package -->
+    <script src="../js/midi/audioDetect.js" type="text/javascript"></script>
+    <script src="../js/midi/gm.js" type="text/javascript"></script>
+    <script src="../js/midi/loader.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.audiotag.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.webaudio.js" type="text/javascript"></script>
+    <script src="../js/midi/plugin.webmidi.js" type="text/javascript"></script>
+    <script src="../js/midi/player.js" type="text/javascript"></script>
+    <script src="../js/midi/synesthesia.js" type="text/javascript"></script>
+    <!-- utils -->
+    <script src="../js/util/dom_request_xhr.js" type="text/javascript"></script>
+    <script src="../js/util/dom_request_script.js" type="text/javascript"></script>
+    <!-- includes -->
+    <script src="./inc/timer.js" type="text/javascript"></script>
+    <script src="./inc/colorspace.js" type="text/javascript"></script>
+    <script src="./inc/event.js" type="text/javascript"></script>
+</head>
+<body>
+<button type="button" id="playButton" onclick="print()">click to play</button><br>
+<p id="idk"></p>
+<script type="text/javascript">
+    var midiHeader = "4D 54 68 64 00 00 00 06 00 01 00 02 00 78";
+    // standard midi header with track number and tick number
+    var midiInfo = "4D 54 72 6B 00 00 00 17 00 FF 03 00 00 FF 51 03 07 A1 20 00 FF 58 04 04 02 18 08 00 FF 2F 00"
+    // info track, set tick time, beats
+    var melodyTrk = "4D 54 72 6B 00 00 00 20 00 FF 03 00 00 90 3C 7F 50 80 3C 40 00 90 3E 7F 50 80 3E 40 00 90 40 7F 50 80 40 40 00 FF 2F 00"
+    // simple melody track
+    var midiCompletion = midiHeader + midiInfo + melodyTrk;
+    // var midiCompletion = "4d 54 68 64 00 00 00 06 00 02 00 03 00 78 4d 54 72 6b 00 00 00 17 00 ff 03 00 00 ff 51 03 07 a1 20 00 ff 58 04 04 02 18 08 00 ff 2f 00 4d 54 72 6b 00 00 00 23 00 ff 03 00 00 90 24 7f 83 60 80 24 40 00 90 26 7f 83 60 80 26 40 00 90 28 7f 83 60 80 28 40 00 ff 2f 00 4d 54 72 6b 00 00 00 23 00 ff 03 00 00 90 30 7f 83 60 80 30 40 00 90 32 7f 83 60 80 32 40 00 90 34 7f 83 60 80 34 40 00 f 2f 00 "
+    var midiBin = midiCompletion.split(' ');
+
+    function print()
+    {
+        var text = "";
+        for(var i = 0; i<midiBin.length; i++)
+        {
+
+            var temp = "0x" + midiBin[i];
+            text += String.fromCharCode(temp);
+        }
+        // var trunk = "data:audio/midi;base64," + Base64Binary.decode(text);
+        document.getElementById("idk").innerHTML = text;
+        alert("binded!");
+        player = MIDI.Player;
+        player.currentData = text;
+        player.loadMidiFile(player.start());
+    }
+</script>
+</body>
+</html>
