@@ -634,8 +634,8 @@
 
 
     <script>
-        var notelist;
-        var nlengthlist;
+        var notelist = new Array();
+        var nlengthlist = new Array() ;
         var name;
         var chordlist;
         var clengthlist;
@@ -761,8 +761,8 @@
                         //alert(melodyobject[keys[2]]);
                         //alert(keys[1]);
                         //alert(melodyobject[keys[1]]);
-                        notelist = melodyobject[keys[2]];
-                        nlengthlist = melodyobject[keys[1]];
+                        notelist[i] = melodyobject[keys[2]];
+                        nlengthlist[i] = melodyobject[keys[1]];
                         name = melodyobject[keys[3]];
                         //alert("melody list: " + notelist);
                         //alert("melody length list: " + nlengthlist);
@@ -771,7 +771,7 @@
                         //display name of scores under this user
                         var newRow = document.getElementById("userTable").insertRow();
                         var newCell = newRow.insertCell();
-                        newCell.innerHTML = name;
+                        newCell.innerHTML = name + i ;
                         newCell.addEventListener("click",displayBlockfunction);
                         /* for(var s=0 ;s<notelist.length; s++){
 
@@ -818,12 +818,23 @@
 
        var displayBlockfunction =  function displayBlock(){
             var blockColorCache;
-            alert("hello");
-            for(i=0;i<notelist.length;i++){
-                var noteNameCache = correctString(notelist[i]);
-                var noteLengthCache = correctString(nlengthlist[i]);
-                
+           // alert("hello");
+            //alert(this.innerHTML);
+            var seqnumber  = this.innerHTML.substring(10);
+           // alert(seqnumber);
+            //alert(notelist[seqnumber]);
+            var notelistlc = notelist[seqnumber];
+            var lengthlistlc = nlengthlist[seqnumber];
+            lengthlistlc = lengthlistlc.split(",");
+            notelistlc = notelistlc.split(",");
+            alert(lengthlistlc);
+            alert(notelistlc);
+            for(i=0;i<notelistlc.length;i++){
+                var noteNameCaChe = notelistlc[i];
+                var noteLengthCache = lengthlistlc[i];
+                alert(noteNameCaChe);
                 switch (noteNameCaChe.substr(0,1)){
+
                     case "C":
                         if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
                             blockColorCache = "#3eede7";
