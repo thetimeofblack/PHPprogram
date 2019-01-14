@@ -29,10 +29,10 @@ class DBConnection{
             $userpassword = $user->getUserPassword();
             $sql = "Insert into user(username, userpassword) values ('".$username."','".$userpassword."')";
             $this->db->query($sql);
-            echo "Insert successful" ;
-            $userid = mysqli_insert_id();
+            $userid = $this->db->insert_id;
             return $userid;
         }
+        return "";
     }
 
 
