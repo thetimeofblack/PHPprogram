@@ -827,6 +827,10 @@
             var lengthlistlc = nlengthlist[seqnumber];
             lengthlistlc = lengthlistlc.split(",");
             notelistlc = notelistlc.split(",");
+            var length1 = lengthlistlc.length ;
+            var length2 = notelistlc.length;
+            alert(length1);
+            alert(length2);
             alert(lengthlistlc);
             alert(notelistlc);
             for(i=0;i<notelistlc.length;i++){
@@ -881,13 +885,13 @@
                 var td1 = document.getElementById("melrow1").insertCell();
                 td1.colSpan = parseInt(noteLengthCache);
                 td1.innerHTML = noteLengthCache;
-        
+
                 for (i=0;i<parseInt(noteLengthCache);i++){
                     var td2 = document.getElementById("melrow2").insertCell();
                     td2.setAttribute("width","50px");
                     td2.style.backgroundColor = blockColorCache;
                 }
-                
+
                 var td3 = document.getElementById("melrow3").insertCell();
                 td3.colSpan = parseInt(noteLengthCache);
                 td3.innerHTML = noteNameCache;

@@ -70,6 +70,7 @@
                 xmlhttp.onreadystatechange= function(){
                     if(this.readyState ==4 && this.status==200){
                         var responsearray = JSON.parse(this.responseText);
+                        alert(this.responseText);
                         if(responsearray["check"]){
                             var LoginInError = document.getElementById("LoginInError");
                             LoginInError.innerHTML = "User Name or Password Error";
@@ -87,7 +88,26 @@
                 xmlhttp.send();
             }
             function UserSignUp(){
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange= function(){
+                    if(this.readyState ==4 && this.status==200){
+                        var responsearray = JSON.parse(this.responseText);
+                        alert(this.responseText);
+                        if(responsearray["check"]){
+                            document.getElementById("UserSignUp").style.display = "None";
 
+                        }else{
+                            var LoginInError = document.getElementById("LoginInError");
+                            LoginInError.innerHTML = "User Name or Password Error";
+                        }
+                    }
+                }
+                var sendarray  = new Array();
+                sendarray["username"] = document.getElementById("luName").innerHTML;
+                sendarray["userpassword"] = document.getElementById("lupassword").innerHTML;
+                sendarray = JSON.stringify(sendarray);
+                xmlhttp.open("GET", "UserLogin.php?sendArray=" + sendarray, true);
+                xmlhttp.send();
             }
             function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
@@ -128,6 +148,7 @@
         <!-- author:   -->
         <!-- Modal -->
         <div id="UserLogin" class="w3-modal w3-animate-opacity">
+            <form action="UserLogin.php" method="POST">
             <div class="w3-modal-content" style="padding:32px">
                 <div class="w3-container w3-white">
                     <i onclick="document.getElementById('UserLogin').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
@@ -138,10 +159,13 @@
                     <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="UserLoginin()">Log In</button>
                 </div>
             </div>
+            </form>
         </div>
 
         <!-- SignUpModal -->
+
         <div id="UserSignUp" class="w3-modal w3-animate-opacity">
+            <form action="UserSignUp.php" method="POST">
             <div class="w3-modal-content" style="padding:32px">
                 <div class="w3-container w3-white">
                     <i onclick="document.getElementById('UserSignUp').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
@@ -150,9 +174,10 @@
                     <p><input id="suName" class="w3-input w3-border" type="text" placeholder="Enter UserName"></p>
                     <p><input id="suPassword"class="w3-input w3-border" type="text" placeholder="Enter UserPassword"></p>
                     <p><input id="surPassword" class="w3-input w3-border" type="text" placeholder="Enter UserPassword Again"></p>
-                    <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="UserSignUp()">Log In</button>
+                    <input type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="UserSignUp()">Sign Up</input>
                 </div>
             </div>
+            </form>
         </div>
 
         <header>
