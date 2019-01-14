@@ -6,7 +6,13 @@
     <title>Score Editor</title>
 
     <script>
-        
+        var Str = "4d 54 68 64 00 00 00 06 00 02 00 03 00 78 4d 54 72 6b 00 00 00 17 00 ff 03 00 00 ff 51 03 07 a1 20 00 ff 58 04 04 02 18 08 00 ff 2f 00 ";
+        var melHead = "4d 54 72 6b ";
+        var choHead = "4d 54 72 6b ";
+        var melStr = "00 ff 03 00 "; 
+        var choStr = "00 ff 03 00 ";
+        var endStr = "00 ff 2f 00 "
+
         function changeTabNote(){
             if (document.getElementById("melody").style.display == "none"){
                 document.getElementById("melody").style.display = "block";
@@ -22,7 +28,10 @@
         }
 
         function addNote(noteName,blockColor){
-            if((document.getElementById("noteLength").value>0)&&(!document.getElementById("noteGroup").value=="")){
+            var noteNumber;                
+            var noteTime;
+
+            if((document.getElementById("noteLength").value>0)&&(document.getElementById("noteGroup").value>="1")&&(document.getElementById("noteGroup").value<="8")){
                 var tr1 = document.getElementById("melrow1");
                 var td1 = tr1.insertCell();
                 //td1.setAttribute ("className","tick");
@@ -55,12 +64,132 @@
                 td4.innerHTML = "<button onclick='deleteNote(this)'>delete</button>";
                 //alert(td4.colomn.count);
                 //unitCount += parseInt(document.getElementById("noteLength").value);
+            
+        
+            
+        //generate string to be played
+            switch (noteName){
+                case "C":
+                    noteNumber = 0;
+                    break;
+                case "C#":
+                    noteNumber = 1;
+                    break;
+                case "D":
+                    noteNumber = 2;
+                    break;
+                case "D#":
+                    noteNumber = 3;
+                    break;
+                case "E":
+                    noteNumber = 4;
+                    break;
+                case "F":
+                    noteNumber = 5;
+                    break;
+                case "F#":
+                    noteNumber = 6;
+                    break;
+                case "G":
+                    noteNumber = 7;
+                    break;
+                case "G#":
+                    noteNumber = 8;
+                    break;
+                case "A":
+                    noteNumber = 9;
+                    break;
+                case "A#":
+                    noteNumber = 10;
+                    break;
+                case "B":
+                    noteNumber = 11;
+                    break;
             }
+            
+            switch (document.getElementById("noteGroup").value){
+                case "-2":
+                    noteNumber += 0;
+                    break;
+                case "-1":
+                    noteNumber += 12;
+                    break;
+                case "0":
+                    noteNumber += 24;
+                    break;
+                case "1":
+                    noteNumber += 36;
+                    break;
+                case "2":
+                    noteNumber += 48;
+                    break;
+                case "3":
+                    noteNumber += 60;
+                    break;
+                case "4":
+                    noteNumber += 72;
+                    break;
+                case "5":
+                    noteNumber += 84;
+                    break;
+                case "6":
+                    noteNumber += 96;
+                    break;
+                case "7":
+                    noteNumber += 108;
+                    break;
+            }
+            //alert(noteNumber);
+            //alert(noteNumber.toString(16));
+            
+            //transform to HEX
+            melStr = melStr + "00 90 " + noteNumber.toString(16) + " ";
+            
+            //add velocity
+            melStr = melStr + "64 ";
+
+            //add time length
+            noteTime = parseInt(document.getElementById("noteLength").value) * 60;
+            //alert(noteTime);
+            switch (noteTime){
+                case 60:
+                    melStr = melStr + noteTime.toString(16) + " ";
+                    break;
+                case 120:
+                    melStr = melStr + noteTime.toString(16) + " ";
+                    break;
+                case 180:
+                    melStr = melStr + "81 34 ";
+                    break;
+                case 240:
+                    melStr = melStr + "81 70 ";
+                    break;
+                case 300:
+                    melStr = melStr + "82 2C ";
+                    break;
+                case 360:
+                    melStr = melStr + "82 68 ";
+                    break;
+                case 420:
+                    melStr = melStr + "83 24 ";
+                    break;
+                case 480:
+                    melStr = melStr + "83 60 ";
+                    break;   
+            }
+        
+        //release
+        melStr = melStr + "80 " + noteNumber.toString(16) + " " + "64 ";
+        //alert(melStr);
         }
+    } 
 
 
         function addChord(chordName,blockColor){
-            if((document.getElementById("chordLength").value>0)&&(!document.getElementById("chordGroup").value=="")){
+            var chordNumber;
+            var chordTime;
+
+            if((document.getElementById("chordLength").value>0)&&(document.getElementById("noteGroup").value>="1")&&(document.getElementById("noteGroup").value<="8")){
                 var tr5 = document.getElementById("chorow1");
                 var td5 = tr5.insertCell();
                 //td5.setAttribute ("className","tick");
@@ -90,8 +219,143 @@
                 var td8 = tr8.insertCell();
                 //td8.setAttribute ("className","tick");
                 td8.colSpan = document.getElementById("chordLength").value;
-                td8.innerHTML = "<button onclick='deleteChord(this)'>delete</button>";
+                td8.innerHTML = "<button onclick='deleteChord(this)'>delete</button>";  
             }
+            
+             //generate string to be played
+            switch (chordName){
+                case "C":
+                    chordNumber = 0;
+                    break;
+                case "C#":
+                    chordNumber = 1;
+                    break;
+                case "D":
+                    chordNumber = 2;
+                    break;
+                case "D#":
+                    chordNumber = 3;
+                    break;
+                case "E":
+                    chordNumber = 4;
+                    break;
+                case "F":
+                    chordNumber = 5;
+                    break;
+                case "F#":
+                    chordNumber = 6;
+                    break;
+                case "G":
+                    chordNumber = 7;
+                    break;
+                case "G#":
+                    chordNumber = 8;
+                    break;
+                case "A":
+                    chordNumber = 9;
+                    break;
+                case "A#":
+                    chordNumber = 10;
+                    break;
+                case "B":
+                    chordNumber = 11;
+                    break;
+            }
+            
+            switch (document.getElementById("chordGroup").value){
+                case "-2":
+                    chordNumber += 0;
+                    break;
+                case "-1":
+                    chordNumber += 12;
+                    break;
+                case "0":
+                    chordNumber += 24;
+                    break;
+                case "1":
+                    chordNumber += 36;
+                    break;
+                case "2":
+                    chordNumber += 48;
+                    break;
+                case "3":
+                    chordNumber += 60;
+                    break;
+                case "4":
+                    chordNumber += 72;
+                    break;
+                case "5":
+                    chordNumber += 84;
+                    break;
+                case "6":
+                    chordNumber += 96;
+                    break;
+                case "7":
+                    chordNumber += 108;
+                    break;
+            }
+
+            //transform to HEX
+            if (document.getElementById("color").value == "major"){
+                choStr = choStr + "00 90 " + chordNumber.toString(16) + " 64 00 ";
+                chordNumber += 4;
+                choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                chordNumber += 3;
+                choStr = choStr + chordNumber.toString(16) + " 64 ";
+            }else if (document.getElementById("color").value == "minor"){
+                choStr = choStr + "00 90 " + chordNumber.toString(16) + " 64 00 ";
+                chordNumber += 3;
+                choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                chordNumber += 4;
+                choStr = choStr + chordNumber.toString(16) + " 64 ";
+            }
+            
+            //add time
+            chordTime = parseInt(document.getElementById("chordLength").value) * 60;
+            //alert(chordTime);
+            switch (chordTime){
+                case 60:
+                    choStr = choStr + noteTime.toString(16) + " ";
+                    break;
+                case 120:
+                    choStr = choStr + noteTime.toString(16) + " ";
+                    break;
+                case 180:
+                    choStr = choStr + "81 34 ";
+                    break;
+                case 240:
+                    choStr = choStr + "81 70 ";
+                    break;
+                case 300:
+                    choStr = choStr + "82 2C ";
+                    break;
+                case 360:
+                    choStr = choStr + "82 68 ";
+                    break;
+                case 420:
+                    choStr = choStr + "83 24 ";
+                    break;
+                case 480:
+                    choStr = choStr + "83 60 ";
+                    break;   
+            }
+
+            //release
+            if (document.getElementById("color").value == "major"){
+                choStr = choStr + "80 " + chordNumber.toString(16) + " 64 00 ";
+                chordNumber -= 3;
+                choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                chordNumber -= 4;
+                choStr = choStr + chordNumber.toString(16) + " 64 ";
+            }else if (document.getElementById("color").value == "minor"){
+                choStr = choStr + "00 90 " + chordNumber.toString(16) + " 64 00 ";
+                chordNumber -= 4;
+                choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                chordNumber -= 3;
+                choStr = choStr + chordNumber.toString(16) + " 64 ";
+            }
+
+            //alert(choStr);
         }
 
         function deleteNote(o){
@@ -148,12 +412,7 @@
                 document.getElementById("chorow2").deleteCell(startCellIndex);
             }
         }
-        function test(){
-            alert(this.name);
-
-        }
-
-
+        
     </script>
 
 
@@ -204,11 +463,7 @@
                     <section id="melody" name="melody" style="text-align:center;display:block;">
                         <table align="center" style="width:300px;border:solid black 2px;text-align:center;">
                             <tr>
-                                <td>
-                                    <button onclick="addNote('A','#f20c00')">A</button><br>
-                                    <button onclick="addNote('A#','#ffa400')">A#</button><br>
-                                    <button onclick="addNote('B','#fff143')">B</button><br>
-                                    <button onclick="addNote('B#','#00bc12')">B#</button><br>
+                                <td> 
                                     <button onclick="addNote('C','#3eede7')">C</button><br>
                                     <button onclick="addNote('C#','#4b5cc4')">C#</button><br>
                                     <button onclick="addNote('D','#8d4bbb')">D</button><br>
@@ -218,6 +473,10 @@
                                     <button onclick="addNote('F#','#d6c6af')">F#</button><br>
                                     <button onclick="addNote('G','#3de1ad')">G</button><br>
                                     <button onclick="addNote('G#','#70f3ff')">G#</button><br>
+                                    <button onclick="addNote('A','#f20c00')">A</button><br>
+                                    <button onclick="addNote('A#','#ffa400')">A#</button><br>
+                                    <button onclick="addNote('B','#fff143')">B</button><br>
+                                    <button onclick="addNote('B#','#00bc12')">B#</button><br>
                                 </td>
                                 <td>
                                     <p id="hint">please select the note group</p>
@@ -247,10 +506,6 @@
                         <table align="center" style="width:300px;border:solid black 2px;text-align:center;">
                             <tr>
                                 <td>
-                                    <button onclick="addChord('A','#f20c00')">A</button><br>
-                                    <button onclick="addChord('A#','#ffa400')">A#</button><br>
-                                    <button onclick="addChord('B','#fff143')">B</button><br>
-                                    <button onclick="addChord('B#','#00bc12')">B#</button><br>
                                     <button onclick="addChord('C','#3eede7')">C</button><br>
                                     <button onclick="addChord('C#','#4b5cc4')">C#</button><br>
                                     <button onclick="addChord('D','#8d4bbb')">D</button><br>
@@ -260,6 +515,10 @@
                                     <button onclick="addChord('F#','#d6c6af')">F#</button><br>
                                     <button onclick="addChord('G','#3de1ad')">G</button><br>
                                     <button onclick="addChord('G#','#70f3ff')">G#</button><br>
+                                    <button onclick="addChord('A','#f20c00')">A</button><br>
+                                    <button onclick="addChord('A#','#ffa400')">A#</button><br>
+                                    <button onclick="addChord('B','#fff143')">B</button><br>
+                                    <button onclick="addChord('B#','#00bc12')">B#</button><br>
                                 </td>
                                 <td>
                                     <p id="hint">Please select the chord color</p>
@@ -363,20 +622,23 @@
                             <tr id="userScoreList">
                                 <th>Score Name</th>
                             </tr>
-                            <!-- use js to add new tr and put DATA into td -->
                         </table>
                     </section>
                 </div>
             </td>
         </tr>
     </table>
-
+    <button id="test" onclick="generateStr()">test</button>
     <footer>
 		<p>Copyright® 2019 He,Yining Zhou,Kaiwen and Shan,Jiaxiang</p>
 	</footer>
 
 
     <script>
+        var notelist;
+        var nlengthlist;
+        var name;
+
 
         function sendData(o) {
             var notelist   =  new Array();
@@ -499,18 +761,18 @@
                         //alert(melodyobject[keys[2]]);
                         //alert(keys[1]);
                         //alert(melodyobject[keys[1]]);
-                        var notelist = melodyobject[keys[2]];
-                        var nlengthlist = melodyobject[keys[1]];
-                        var name = melodyobject[keys[3]];
-                        alert("melody list: " + notelist);
-                        alert("melody length list: " + nlengthlist);
-                        alert("user score name list: " + name);
+                        notelist = melodyobject[keys[2]];
+                        nlengthlist = melodyobject[keys[1]];
+                        name = melodyobject[keys[3]];
+                        //alert("melody list: " + notelist);
+                        //alert("melody length list: " + nlengthlist);
+                        //alert("user score name list: " + name);
 
                         //display name of scores under this user
                         var newRow = document.getElementById("userTable").insertRow();
                         var newCell = newRow.insertCell();
                         newCell.innerHTML = name;
-
+                        newCell.addEventListener("click",displayBlock());
                         /* for(var s=0 ;s<notelist.length; s++){
 
                         } */
@@ -534,14 +796,10 @@
                             keys[start++] = j;
                         }
 
-                        //alert(keys[2]);
-                        //alert(melodyobject[keys[2]]);
-                        //alert(keys[1]);
-                        //alert(melodyobject[keys[1]]);
                         var chordlist = chordobject[keys[2]];
                         var clengthlist = chordobject[keys[1]];
-                        alert("chord list: " + chordlist);
-                        alert("chord length list: " + clengthlist);
+                        //alert("chord list: " + chordlist);
+                        //alert("chord length list: " + clengthlist);
                         /* for(var s=0 ;s<chordlist.length; s++){
 
 
@@ -557,6 +815,9 @@
             xmlhttp.open("GET" , "getUserScore.php?userid=" +userid , true );
             xmlhttp.send();
         }
+
+        
+
         </script>
     </body>
 </html>
