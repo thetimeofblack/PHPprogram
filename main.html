@@ -823,19 +823,23 @@
             var seqnumber  = this.innerHTML.substring(10);
            // alert(seqnumber);
             //alert(notelist[seqnumber]);
+            var nlengthlistlc = nlengthlist[seqnumber];   // nlengthlistlc is a string
             var notelistlc = notelist[seqnumber];
-            var lengthlistlc = nlengthlist[seqnumber];
-            lengthlistlc = lengthlistlc.split(",");
+            nlengthlistlc = correctString(nlengthlistlc);   //delete"["&"]"
+            notelistlc = correctString(notelistlc);
+            nlengthlistlc = nlengthlistlc.split(",");    // nlengthlistlc become an array
             notelistlc = notelistlc.split(",");
-            var length1 = lengthlistlc.length ;
+            var length1 = nlengthlistlc.length ;    //length of array
             var length2 = notelistlc.length;
             alert(length1);
             alert(length2);
-            alert(lengthlistlc);
+            alert(nlengthlistlc);
             alert(notelistlc);
             for(i=0;i<notelistlc.length;i++){
+                notelistlc[i] = correctString(notelistlc[i]);   //delete'"'&'"'
+                nlengthlistlc[i] = correctString(nlengthlistlc[i]); 
                 var noteNameCaChe = notelistlc[i];
-                var noteLengthCache = lengthlistlc[i];
+                var noteLengthCache = nlengthlistlc[i];
                 alert(noteNameCaChe);
                 switch (noteNameCaChe.substr(0,1)){
 
