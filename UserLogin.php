@@ -5,10 +5,12 @@
  * Date: 2019/1/10
  * Time: 11:14
  */
-    $sendArray = $_REQUEST["sendArray"];
+include "DBConnection.php";
+    $sendArray = $_REQUEST["sendarray"];
     $sendArray  = json_decode($sendArray);
+    $sendArray = (array) $sendArray;
     $username =  $sendArray["username"];
-    $userpassword = $_REQUEST["userpassword"];
+    $userpassword = $sendArray["userpassword"];
     $user= new User();
     $user->setUserName($username);
     $user->setUserPassword($userpassword);
