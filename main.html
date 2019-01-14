@@ -476,7 +476,6 @@
                                     <button onclick="addNote('A','#f20c00')">A</button><br>
                                     <button onclick="addNote('A#','#ffa400')">A#</button><br>
                                     <button onclick="addNote('B','#fff143')">B</button><br>
-                                    <button onclick="addNote('B#','#00bc12')">B#</button><br>
                                 </td>
                                 <td>
                                     <p id="hint">please select the note group</p>
@@ -518,7 +517,6 @@
                                     <button onclick="addChord('A','#f20c00')">A</button><br>
                                     <button onclick="addChord('A#','#ffa400')">A#</button><br>
                                     <button onclick="addChord('B','#fff143')">B</button><br>
-                                    <button onclick="addChord('B#','#00bc12')">B#</button><br>
                                 </td>
                                 <td>
                                     <p id="hint">Please select the chord color</p>
@@ -628,7 +626,7 @@
             </td>
         </tr>
     </table>
-    <button id="test" onclick="generateStr()">test</button>
+    <button id="test" onclick="correctString()">test</button>
     <footer>
 		<p>Copyright® 2019 He,Yining Zhou,Kaiwen and Shan,Jiaxiang</p>
 	</footer>
@@ -638,7 +636,8 @@
         var notelist;
         var nlengthlist;
         var name;
-
+        var chordlist;
+        var clengthlist;
 
         function sendData(o) {
             var notelist   =  new Array();
@@ -731,7 +730,7 @@
 
         }
 
-                window.onload= function(){
+        window.onload= function(){
             var userid = "23";
             var xmlhttp =  new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
@@ -796,8 +795,8 @@
                             keys[start++] = j;
                         }
 
-                        var chordlist = chordobject[keys[2]];
-                        var clengthlist = chordobject[keys[1]];
+                        chordlist = chordobject[keys[2]];
+                        clengthlist = chordobject[keys[1]];
                         //alert("chord list: " + chordlist);
                         //alert("chord length list: " + clengthlist);
                         /* for(var s=0 ;s<chordlist.length; s++){
@@ -816,7 +815,82 @@
             xmlhttp.send();
         }
 
+        function displayBlock(){
+            var blockColorCache;
+
+            for(i=0;i<notelist.length;i++){
+                var noteNameCache = correctString(notelist[i]);
+                var noteLengthCache = correctString(nlengthlist[i]);
+                
+                switch (noteNameCaChe.substr(0,1)){
+                    case "C":
+                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                            blockColorCache = "#3eede7";
+                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                            blockColorCache = "#4b5cc4";
+                        }
+                        break;
+                    case "D":
+                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                            blockColorCache = "#8d4bbb";
+                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                            blockColorCache = "#ff4777";
+                        }
+                        break;
+                    case "E":
+                            blockColorCache = "#ca6924";
+                        break;
+                    case "F":
+                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                            blockColorCache = "#eacd76";
+                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                            blockColorCache = "#d6c6af";
+                        }
+                        break;
+                    case "G":
+                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                            blockColorCache = "#3de1ad";
+                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                            blockColorCache = "#70f3ff";
+                        }
+                        break;
+                    case "A":
+                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                            blockColorCache = "#f20c00";
+                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                            blockColorCache = "#ffa400";
+                        }
+                        break;
+                    case "B":
+                            blockColorCache = "#fff143";
+                        break;    
+                }
+
+                var td1 = document.getElementById("melrow1").insertCell();
+                td1.colSpan = parseInt(noteLengthCache);
+                td1.innerHTML = noteLengthCache;
         
+                for (i=0;i<parseInt(noteLengthCache);i++){
+                    var td2 = document.getElementById("melrow2").insertCell();
+                    td2.setAttribute("width","50px");
+                    td2.style.backgroundColor = blockColorCache;
+                }
+                
+                var td3 = document.getElementById("melrow3").insertCell();
+                td3.colSpan = parseInt(noteLengthCache);
+                td3.innerHTML = noteNameCache;
+
+                var td4 = document.getElementById("melrow4").insertCell();
+                td4.colSpan = parseInt(noteLengthCache);
+                td4.innerHTML = "<button onclick='deleteNote(this)'>delete</button>";
+            }
+        }
+
+        function correctString(str){
+            str = str.slice(1);
+            str = str.substr(0,str.length-1);
+            //alert(str);
+        }
 
         </script>
     </body>
