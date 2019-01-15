@@ -820,15 +820,15 @@
             timelistinput.value = timejson ;
             var notelistinput = document.getElementById("notelist");
             notelistinput.value = notejson ;
-            var userid = "21";
+            var userid = "110";
             var userinput = document.getElementById("userid");
             userinput.value = userid;
             var melodynameinput = document.getElementById("melodyname");
             var melodydescriptioninput = document.getElementById("melodydescription");
             var scorenameinput = document.getElementById("scorename");
             var scoredescriptioninput = document.getElementById("scoredescription");
-             melodynameinput.value = "MelodyName";
-             melodydescriptioninput.value = "MelodyDescription" ;
+             melodynameinput.value = melodynameinput.innerHTML;
+             melodydescriptioninput.value = melodydescriptioninput.innerHTML ;
              scorenameinput.value = "ScoreName" ;
              scoredescriptioninput.value = "ScoreDescription";
              o.submit();
@@ -860,7 +860,7 @@
         }
 
         window.onload= function(){
-            var userid = "21";
+            var userid = "110";
             var xmlhttp =  new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
                 if(this.readyState == 4 && this.status == 200){
@@ -940,7 +940,7 @@
 
                     //start to put data into table
                     //display username
-                    document.getElementById("userName").innerHTML = userid;
+                    document.getElementById("userName").innerHTML = "Test";
                     
                 }
             };
