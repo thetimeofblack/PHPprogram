@@ -29,7 +29,7 @@ if(validateInput()) {
         $timelist   = json_decode($timelist);
         $notelist   = json_decode($notelist);
         $lengthlist = json_decode($lengthlist);
-
+       // echo $userid;
 
         $melody->setChordList($chordlist);
         $melody->setLengthList($lengthlist);

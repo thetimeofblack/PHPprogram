@@ -725,7 +725,7 @@
                     <button name="pause" onclick="pause()">pause</button>
                     <button name="stop" onclick="stop()">stop</button>
                     <button name="load" onclick="loadAndPlay()">load</button>
-                    <form action="main.html" method="POST" onsubmit="sendData(this);return false;">
+                    <form action="save.php" method="POST" onsubmit="sendData(this);return false;">
                         <input id="scorename" name ="scorename" type="text"  style="display: none;"/>
                         <input id="scoredescription" name ="scoredescription" type="text"  style="display: none;"/>
                         <input id="melodyname" name ="melodyname" type="text"  style="display: none;"/>
@@ -820,7 +820,7 @@
             timelistinput.value = timejson ;
             var notelistinput = document.getElementById("notelist");
             notelistinput.value = notejson ;
-            var userid = "23";
+            var userid = "21";
             var userinput = document.getElementById("userid");
             userinput.value = userid;
             var melodynameinput = document.getElementById("melodyname");
@@ -860,7 +860,7 @@
         }
 
         window.onload= function(){
-            var userid = "23";
+            var userid = "21";
             var xmlhttp =  new XMLHttpRequest();
             xmlhttp.onreadystatechange = function(){
                 if(this.readyState == 4 && this.status == 200){
@@ -927,7 +927,9 @@
                         }
 
                         chordlist = chordobject[keys[2]];
-                        clengthlist = chordobject[keys[1]];
+                        clengthlist = chordobject[keys[3]];
+                        //alert(clengthlist);
+                        //alert(clengthlist);
                         //alert("chord list: " + chordlist);
                         //alert("chord length list: " + clengthlist);
                         /* for(var s=0 ;s<chordlist.length; s++){
@@ -986,8 +988,10 @@
             var seqnumber  = this.innerHTML.substring(10);
             var nlengthlistlc = nlengthlist[seqnumber];   // nlengthlistlc is a string
             var notelistlc = notelist[seqnumber];
-            var clengthlistlc = clengthlist[seqnumber];     // clengthlistlc is a string
-            var chordlistlc = chordlist[seqnumber];
+            var clengthlistlc = clengthlist;     // clengthlistlc is a string
+            var chordlistlc = chordlist;
+            //alert(chordlist);
+            //alert(clengthlist);
            /*  //test sentence
             var notelistlc = "['A#4','C4','C#4','E4']";
             var nlengthlistlc = "['4','4','4','4']";
