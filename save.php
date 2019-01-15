@@ -58,3 +58,7 @@ if(validateInput()) {
 
 }
 ?>
+
+<a href="main.html" >
+    <span id="direction">Go back to the main page</span>
+</a>
