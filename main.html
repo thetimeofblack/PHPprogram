@@ -491,21 +491,19 @@
         }
 
         function deleteNote(o){
-            //alert(o.parentNode.cellIndex)
-            //alert("name" + o.name);
-            //alert("id" + o.id)
-            //alert("length"+(o.parentNode.parentNode.cells.length-1));
-            //alert("value" + document.getElementById("melodyTable").rows[1].cells[o.id].innerHTML);
+            //remove code
+            if (parseInt(document.getElementById("melodyTable").rows[1].cells[o.parentNode.cellIndex].innerHTML)<3){
+                melStr = melStr.substr(0,melStr.length-24);
+            }else{
+                melStr = melStr.substr(0,melStr.length-27);
+            }
+
             var startCellIndex = 1;
             for(i=1;i<o.parentNode.cellIndex;i++){
                 startCellIndex = startCellIndex + parseInt(document.getElementById("melodyTable").rows[1].cells[i].innerHTML); 
             }
-            //parseInt(document.getElementById("melrow2").cells.length - document.getElementById("melodyTable").rows[1].cells[o.parentNode.parentNode.cells.length - 1].innerHTML);
             var singleIndex = parseInt(o.parentNode.cellIndex);
             var duration = parseInt(document.getElementById("melodyTable").rows[1].cells[o.parentNode.cellIndex].innerHTML);
-            //alert("startCellIndex" + startCellIndex);
-            //alert("singleIndex" + singleIndex);
-            //alert("duration" + duration);
             
             //delete single cell
             document.getElementById("melrow1").deleteCell(o.parentNode.cellIndex);
@@ -518,21 +516,20 @@
             }
         }
 
-            function deleteChord(o){
-            //alert(o.parentNode.cellIndex)
-            //alert("name" + o.name);
-            //alert("id" + o.id)
-            //alert("length"+(o.parentNode.parentNode.cells.length-1));
-            //alert("value" + document.getElementById("melodyTable").rows[1].cells[o.id].innerHTML);
+        function deleteChord(o){
+            //remove code
+            if (parseInt(document.getElementById("chordTable").rows[1].cells[o.parentNode.cellIndex].innerHTML)<3){
+                choStr = choStr.substr(0,choStr.length-60);
+            }else{
+                choStr = choStr.substr(0,choStr.length-63);
+            }
+            
             var startCellIndex = 1;
             for(i=1;i<o.parentNode.cellIndex;i++){
                 startCellIndex = startCellIndex + parseInt(document.getElementById("chordTable").rows[1].cells[i].innerHTML); 
             }
             var singleIndex = parseInt(o.parentNode.cellIndex);
             var duration = parseInt(document.getElementById("chordTable").rows[1].cells[o.parentNode.cellIndex].innerHTML);
-            //alert("startCellIndex" + startCellIndex);
-            //alert("singleIndex" + singleIndex);
-            //alert("duration" + duration);
             
             //delete single cell
             document.getElementById("chorow1").deleteCell(o.parentNode.cellIndex);
@@ -542,7 +539,7 @@
             //delete block
             for(i=0;i<duration;i++){
                 document.getElementById("chorow2").deleteCell(startCellIndex);
-            }
+            }  
         }
         
     </script>
