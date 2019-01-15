@@ -759,7 +759,7 @@
             </td>
         </tr>
     </table>
-    <button id="test" onclick="correctString()">test</button>
+    <!-- <button id="test" onclick="test()">test</button> -->
     <footer>
 		<p>Copyright® 2019 He,Yining Zhou,Kaiwen and Shan,Jiaxiang</p>
 	</footer>
@@ -949,35 +949,63 @@
         }
 
        var displayBlockfunction =  function displayBlock(){
+           //firstly
+            
             var blockColorCache;
-           // alert("hello");
-            //alert(this.innerHTML);
-            var seqnumber  = this.innerHTML.substring(10);
-           // alert(seqnumber);
-            //alert(notelist[seqnumber]);
-            var notelistlc = notelist[seqnumber];
-            var lengthlistlc = nlengthlist[seqnumber];
-            lengthlistlc = lengthlistlc.split(",");
-            notelistlc = notelistlc.split(",");
-            alert(lengthlistlc);
-            alert(notelistlc);
-            for(i=0;i<notelistlc.length;i++){
-                var noteNameCaChe = notelistlc[i];
-                var noteLengthCache = lengthlistlc[i];
-                alert(noteNameCaChe);
-                switch (noteNameCaChe.substr(0,1)){
 
+            /* var seqnumber  = this.innerHTML.substring(10);
+            var nlengthlistlc = nlengthlist[seqnumber];   // nlengthlistlc is a string
+            var notelistlc = notelist[seqnumber];
+            var clengthlistlc = clengthlist[seqnumber];     // clengthlistlc is a string
+            var chordlistlc = chordlist[seqnumber]; */
+            //test sentence
+            var notelistlc = "['A#4','C4','C#4','E4']";
+            var nlengthlistlc = "['4','4','4','4']";
+            var chordlistlc = "['C4','C#4','A#4','E4']";
+            var clengthlistlc = "['2','3','5','6']";
+            
+            //delete"["&"]"
+            nlengthlistlc = nlengthlistlc.slice(1);
+            nlengthlistlc = nlengthlistlc.substr(0,nlengthlistlc.length-1);
+            notelistlc = notelistlc.slice(1);
+            notelistlc = notelistlc.substr(0,notelistlc.length-1);
+            clengthlistlc = clengthlistlc.slice(1);
+            clengthlistlc = clengthlistlc.substr(0,clengthlistlc.length-1);
+            chordlistlc = chordlistlc.slice(1);
+            chordlistlc = chordlistlc.substr(0,chordlistlc.length-1);
+            var nlengthlistArray = nlengthlistlc.split(",");    // nlengthlistlc become an array
+            var notelistArray = notelistlc.split(",");
+            var clengthlistArray = clengthlistlc.split(",");    // nlengthlistlc become an array
+            var chordlistArray = chordlistlc.split(",");
+            var length1 = nlengthlistArray.length;    //length of array
+            var length2 = notelistArray.length;
+            var length3 = clengthlistArray.length;    //length of array
+            var length4 = chordlistArray.length;
+
+            for(var i=0;i<length1;i++){
+                //delete'"'&'"'
+                notelistArray[i] = notelistArray[i].slice(1);
+                notelistArray[i] = notelistArray[i].substr(0,notelistArray[i].length-1);
+                nlengthlistArray[i] = nlengthlistArray[i].slice(1);
+                nlengthlistArray[i] = nlengthlistArray[i].substr(0,nlengthlistArray[i].length-1);
+
+                var noteNameCache = notelistArray[i];
+                var noteLengthCache = nlengthlistArray[i];
+                alert("notenamecache:" + i + ": " + noteNameCache);
+                alert("noteLengthCache:" + i + ": " + noteLengthCache);
+                
+                switch (noteNameCache.substr(0,1)){
                     case "C":
-                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                        if (noteNameCache.substr(1,1)=="-"||(noteNameCache.substr(1,1)>="0"&&noteNameCache.substr(1,1)<="7")){
                             blockColorCache = "#3eede7";
-                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                        }else if(noteNameCache.substr(1,1)=="#"){
                             blockColorCache = "#4b5cc4";
                         }
                         break;
                     case "D":
-                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                        if (noteNameCache.substr(1,1)=="-"||(noteNameCache.substr(1,1)>="0"&&noteNameCache.substr(1,1)<="7")){
                             blockColorCache = "#8d4bbb";
-                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                        }else if(noteNameCache.substr(1,1)=="#"){
                             blockColorCache = "#ff4777";
                         }
                         break;
@@ -985,23 +1013,23 @@
                             blockColorCache = "#ca6924";
                         break;
                     case "F":
-                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                        if (noteNameCache.substr(1,1)=="-"||(noteNameCache.substr(1,1)>="0"&&noteNameCache.substr(1,1)<="7")){
                             blockColorCache = "#eacd76";
-                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                        }else if(noteNameCache.substr(1,1)=="#"){
                             blockColorCache = "#d6c6af";
                         }
                         break;
                     case "G":
-                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                        if (noteNameCache.substr(1,1)=="-"||(noteNameCache.substr(1,1)>="0"&&noteNameCache.substr(1,1)<="7")){
                             blockColorCache = "#3de1ad";
-                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                        }else if(noteNameCache.substr(1,1)=="#"){
                             blockColorCache = "#70f3ff";
                         }
                         break;
                     case "A":
-                        if (noteNameCaChe.substr(1,1)=="-"||(noteNameCaChe.substr(1,1)>="0"&&noteNameCaChe.substr(1,1)<="7")){
+                        if (noteNameCache.substr(1,1)=="-"||(noteNameCache.substr(1,1)>="0"&&noteNameCache.substr(1,1)<="7")){
                             blockColorCache = "#f20c00";
-                        }else if(noteNameCaChe.substr(1,1)=="#"){
+                        }else if(noteNameCache.substr(1,1)=="#"){
                             blockColorCache = "#ffa400";
                         }
                         break;
@@ -1013,29 +1041,106 @@
                 var td1 = document.getElementById("melrow1").insertCell();
                 td1.colSpan = parseInt(noteLengthCache);
                 td1.innerHTML = noteLengthCache;
-        
-                for (i=0;i<parseInt(noteLengthCache);i++){
+
+                for (j=0;j<parseInt(noteLengthCache);j++){
                     var td2 = document.getElementById("melrow2").insertCell();
                     td2.setAttribute("width","50px");
                     td2.style.backgroundColor = blockColorCache;
                 }
-                
+
                 var td3 = document.getElementById("melrow3").insertCell();
                 td3.colSpan = parseInt(noteLengthCache);
                 td3.innerHTML = noteNameCache;
 
+               
+
                 var td4 = document.getElementById("melrow4").insertCell();
                 td4.colSpan = parseInt(noteLengthCache);
-                td4.innerHTML = "<button onclick='deleteNote(this)'>delete</button>";
-            }
-        }
+                td4.innerHTML = "<button onclick='deleteNote(this)'>delete</button>"; 
+                
+            } 
 
-        function correctString(str){
-            str = str.slice(1);
-            str = str.substr(0,str.length-1);
-            //alert(str);
-        }
+            for(var i=0;i<length1;i++){
+                //delete'"'&'"'
+                chordlistArray[i] = chordlistArray[i].slice(1);
+                chordlistArray[i] = chordlistArray[i].substr(0,chordlistArray[i].length-1);
+                clengthlistArray[i] = clengthlistArray[i].slice(1);
+                clengthlistArray[i] = clengthlistArray[i].substr(0,clengthlistArray[i].length-1);
 
+                var chordNameCache = chordlistArray[i];
+                var chordLengthCache = clengthlistArray[i];
+                alert("chordnamecache:" + i + ": " + chordNameCache);
+                alert("chordLengthCache:" + i + ": " + chordLengthCache);
+                
+                switch (chordNameCache.substr(0,1)){
+                    case "C":
+                        if (chordNameCache.substr(1,1)=="-"||(chordNameCache.substr(1,1)>="0"&&chordNameCache.substr(1,1)<="7")){
+                            blockColorCache = "#3eede7";
+                        }else if(chordNameCache.substr(1,1)=="#"){
+                            blockColorCache = "#4b5cc4";
+                        }
+                        break;
+                    case "D":
+                        if (chordNameCache.substr(1,1)=="-"||(chordNameCache.substr(1,1)>="0"&&chordNameCache.substr(1,1)<="7")){
+                            blockColorCache = "#8d4bbb";
+                        }else if(chordNameCache.substr(1,1)=="#"){
+                            blockColorCache = "#ff4777";
+                        }
+                        break;
+                    case "E":
+                            blockColorCache = "#ca6924";
+                        break;
+                    case "F":
+                        if (chordNameCache.substr(1,1)=="-"||(chordNameCache.substr(1,1)>="0"&&chordNameCache.substr(1,1)<="7")){
+                            blockColorCache = "#eacd76";
+                        }else if(chordNameCache.substr(1,1)=="#"){
+                            blockColorCache = "#d6c6af";
+                        }
+                        break;
+                    case "G":
+                        if (chordNameCache.substr(1,1)=="-"||(chordNameCache.substr(1,1)>="0"&&chordNameCache.substr(1,1)<="7")){
+                            blockColorCache = "#3de1ad";
+                        }else if(chordNameCache.substr(1,1)=="#"){
+                            blockColorCache = "#70f3ff";
+                        }
+                        break;
+                    case "A":
+                        if (chordNameCache.substr(1,1)=="-"||(chordNameCache.substr(1,1)>="0"&&chordNameCache.substr(1,1)<="7")){
+                            blockColorCache = "#f20c00";
+                        }else if(chordNameCache.substr(1,1)=="#"){
+                            blockColorCache = "#ffa400";
+                        }
+                        break;
+                    case "B":
+                            blockColorCache = "#fff143";
+                        break;    
+                }
+
+                var td5 = document.getElementById("chorow1").insertCell();
+                td5.colSpan = parseInt(chordLengthCache);
+                td5.innerHTML = chordLengthCache;
+
+                for (j=0;j<parseInt(chordLengthCache);j++){
+                    var td6 = document.getElementById("chorow2").insertCell();
+                    td6.setAttribute("width","50px");
+                    td6.style.backgroundColor = blockColorCache;
+                }
+
+                var td7 = document.getElementById("chorow3").insertCell();
+                td7.colSpan = parseInt(chordLengthCache);
+                td7.innerHTML = chordNameCache;
+
+               
+
+                var td8 = document.getElementById("chorow4").insertCell();
+                td8.colSpan = parseInt(chordLengthCache);
+                td8.innerHTML = "<button onclick='deleteChord(this)'>delete</button>"; 
+            } 
+        }
+        
+        function test(){
+            this.addEventListener("click",displayBlockfunction);
+        }
         </script>
     </body>
 </html>

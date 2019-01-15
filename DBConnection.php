@@ -209,11 +209,10 @@ class DBConnection{
                 return false;
             }
 
-            if($username == $dbusername){
-
+            if($userpassword == $dbuserpassword){
                 return true;
-            }else {
-               return false ;
+            }else{
+                return false ;
             }
 
         }

@@ -28,6 +28,13 @@
 			text-align:center;
 		}
 		
+        #pageSsubTitle{
+			font-size:40px;
+			font-family:Arial Black;
+			color:#FF3366;
+			text-align:center;
+		}
+
 		#direction{
 			font-size:35px;
 			font-family:Arial Black;
@@ -54,7 +61,17 @@
 			margin-bottom:0%;
 		}
 
-        #button{
+        #LogInbutton{
+            text-align:center;
+            width:150px;
+            height:100px;
+            font-size:30px;
+            color:#a4e2c6;
+            font-family:Arial Black;
+            background-color:#1bd1a5;
+        }
+
+        #SignUpbutton{
             text-align:center;
             width:150px;
             height:100px;
@@ -65,29 +82,64 @@
         }
 	</style>
     <script>
-            function UserLoginin(){
+
+        var userid ;
+        var username ;
+            function UserLoginIn(){
                 var xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange= function(){
                     if(this.readyState ==4 && this.status==200){
+                        alert(this.responseText);
                         var responsearray = JSON.parse(this.responseText);
-                        if(responsearray["check"]){
-                            var LoginInError = document.getElementById("LoginInError");
-                            LoginInError.innerHTML = "User Name or Password Error";
 
+                        if(responsearray["check"]=="true"){
+                            var UserLogin = document.getElementById("UserLogin");
+                            UserLogin.style.display = "none";
+                            document.getElementById("LogInbutton").style.display = "none";
+                            document.getElementById("SignUpbutton").style.display = "none";
                         }else{
+                            alert("error");
+                            var LoginInError = document.getElementById("LoginInError");
+                            LoginInError.style.display="block";
+                            LoginInError.innerHTML = "User Name or Password Error";
 
                         }
                     }
                 }
-                var sendarray  = new Array();
-                sendarray["username"] = document.getElementById("luName");
-                sendarray["userpassword"] = document.getElementById("lupassword");
-                sendarray = JSON.stringify(sendarray);
-                xmlhttp.open("GET", "UserLogin.php?sendArray=" + sendarray, true);
+                var sendarray  = {};
+                sendarray["username"] = document.getElementById("luName").value;
+                sendarray["userpassword"] = document.getElementById("lupassword").value;
+
+                alert(sendarray.toString());
+
+                var sendarrayjson = JSON.stringify(sendarray);
+                alert(sendarrayjson);
+                xmlhttp.open("GET", "UserLogin.php?sendarray=" + sendarrayjson, true);
                 xmlhttp.send();
             }
             function UserSignUp(){
-
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange= function(){
+                    if(this.readyState ==4 && this.status==200){
+                        var responsearray = JSON.parse(this.responseText);
+                        alert(this.responseText);
+                        if(responsearray["check"]){
+                            document.getElementById("UserSignUp").style.display = "none";
+                            document.getElementById("LogInbutton").style.display = "none";
+                            document.getElementById("SignUpbutton").style.display = "none";
+                        }else{
+                            var LoginInError = document.getElementById("LoginInError");
+                            LoginInError.innerHTML = "User Name or Password Error";
+                        }
+                    }
+                }
+                var sendarray  = new Array();
+                sendarray["username"] = document.getElementById("luName").innerHTML;
+                sendarray["userpassword"] = document.getElementById("lupassword").innerHTML;
+                sendarray = JSON.stringify(sendarray);
+                alert(sendarray);
+                xmlhttp.open("GET", "UserLogin.php?sendArray=" + sendarray, true);
+                xmlhttp.send();
             }
             function setCookie(cname, cvalue, exdays) {
                 var d = new Date();
@@ -123,36 +175,47 @@
                 }
             }
 
+            function sendUserInfo(){
+
+
+
+            }
+
     </script>
     <body>
         <!-- author:   -->
         <!-- Modal -->
         <div id="UserLogin" class="w3-modal w3-animate-opacity">
+
             <div class="w3-modal-content" style="padding:32px">
                 <div class="w3-container w3-white">
                     <i onclick="document.getElementById('UserLogin').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
                     <h2 class="w3-wide">Login In</h2>
                     <p id="LoginInError"style="display: none"></p>
                     <p><input id="luName" class="w3-input w3-border" type="text" placeholder="Enter UserName"></p>
-                    <p><input id="lupassword" class="w3-input w3-border" type="text" placeholder="Enter UserPassword"></p>
-                    <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="UserLoginin()">Log In</button>
+                    <p><input id="lupassword" class="w3-input w3-border" type="password" placeholder="Enter UserPassword"></p>
+                    <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="UserLoginIn()">Log In</button>
                 </div>
             </div>
+
         </div>
 
         <!-- SignUpModal -->
+
         <div id="UserSignUp" class="w3-modal w3-animate-opacity">
+
             <div class="w3-modal-content" style="padding:32px">
                 <div class="w3-container w3-white">
                     <i onclick="document.getElementById('UserSignUp').style.display='none'" class="fa fa-remove w3-xlarge w3-button w3-transparent w3-right w3-xlarge"></i>
                     <h2 class="w3-wide">Sign Up</h2>
                     <p id="SignUpError" style="display: none"></p>
                     <p><input id="suName" class="w3-input w3-border" type="text" placeholder="Enter UserName"></p>
-                    <p><input id="suPassword"class="w3-input w3-border" type="text" placeholder="Enter UserPassword"></p>
-                    <p><input id="surPassword" class="w3-input w3-border" type="text" placeholder="Enter UserPassword Again"></p>
-                    <button type="button" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="UserSignUp()">Log In</button>
+                    <p><input id="suPassword"class="w3-input w3-border" type="password" placeholder="Enter UserPassword"></p>
+                    <p><input id="surPassword" class="w3-input w3-border" type="password" placeholder="Enter UserPassword Again"></p>
+                    <input type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom" onclick="UserSignUp()">Sign Up</input>
                 </div>
             </div>
+
         </div>
 
         <header>
@@ -163,7 +226,7 @@
 		<br><br><br><br>
 		<section>
 			<div style="text-align:center;">
-				<a href="main.html">
+				<a href="main.html" onclick="sendUserInfo()">
 					<span id="direction">Create&Edit your own Score</span>
 				</a>
 					<span id="connector">&nbsp;&nbsp;and&nbsp;&nbsp;</span>
@@ -173,10 +236,10 @@
             </div>
             
             <div style="margin-left:800px;padding-top:70px;text-align:center;">
-                <p id="pageSubTitle">Begin with</p>
-                <button id="button" onclick="document.getElementById('UserLogin').style.display='block'">LogIn</button>
+                <p id="pageSsubTitle">Begin with</p>
+                <button id="LogInbutton" onclick="document.getElementById('UserLogin').style.display='block'">LogIn</button>
                 <span>&nbsp;&nbsp;</span>
-                <button id="button" onclick="document.getElementById('UserSignUp').style.display='block'">Sign-Up</button>
+                <button id="SignUpbutton" onclick="document.getElementById('UserSignUp').style.display='block'">Sign-Up</button>
             </div>
 		</section>
 		<footer>
