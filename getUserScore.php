@@ -16,6 +16,7 @@
     $sendArray["melodylist"] = json_encode($melodylist);
     //echo $sendArray["melodylist"];
     $sendArray["scorelist"] = json_encode($scorelist) ;
+    //var_dump($scorelist);
     //echo $sendArray["scorelist"];
     $sendArray = json_encode($sendArray);
     echo $sendArray ;

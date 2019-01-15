@@ -725,7 +725,7 @@
                     <button name="pause" onclick="pause()">pause</button>
                     <button name="stop" onclick="stop()">stop</button>
                     <button name="load" onclick="loadAndPlay()">load</button>
-                    <form action="save.php" method="POST" onsubmit="sendData(this);return false;">
+                    <form action="main.html" method="POST" onsubmit="sendData(this);return false;">
                         <input id="scorename" name ="scorename" type="text"  style="display: none;"/>
                         <input id="scoredescription" name ="scoredescription" type="text"  style="display: none;"/>
                         <input id="melodyname" name ="melodyname" type="text"  style="display: none;"/>
@@ -735,10 +735,9 @@
                         <input id="timelist"   name ="timelist"    type="text"   style= "display: none;"/>
                         <input id="notelist"   name ="notelist"    type="text"   style= "display: none;"/>
                         <input id="userid"     name = "userid"     type ="text"  style ="display:none;"/>
-                        <input name="save"  type="submit" style="margin-left:20%;"/>
+                        <input name="save" value="save" type="submit" style="margin-left:20%;"/>
                     </form>
-                        <input name="getMelody"  type="button"  value="getMelody"    />
-                        <input name="getScore"   type="button"  value="getChord"      />
+
                 </div>
             </td>
             <td style="width:400px;background-color:#fffbf0;">
@@ -756,7 +755,7 @@
             </td>
         </tr>
     </table>
-    <button id="test" onclick="test()">test</button>
+
     <footer>
 		<p>Copyright® 2019 He,Yining Zhou,Kaiwen and Shan,Jiaxiang</p>
 	</footer>
@@ -869,13 +868,15 @@
                     //var userinfo = document.getElementById("userInfo");
                    // alert(userid);
                     //alert(this.responseText);
-                    
+                   // alert(this.responseText);
                     var receiveText = JSON.parse(this.responseText);
+
                     var melodylist = receiveText["melodylist"];
                     var scorelist = receiveText["scorelist"];
                     melodylist = JSON.parse(melodylist);//complex array of melody
                     scorelist = JSON.parse(scorelist);//complex array of chord
                     //array of melody 1.length & 2.note name
+                    //alert(scorelist);
                     for (var i =0 ;i < melodylist.length ; i++){
                         var melody = melodylist[i];
                         //alert(melody);
@@ -1223,7 +1224,7 @@
                 chordlistArray[i] = chordlistArray[i].substr(0,chordlistArray[i].length-1);
                 clengthlistArray[i] = clengthlistArray[i].slice(1);
                 clengthlistArray[i] = clengthlistArray[i].substr(0,clengthlistArray[i].length-1);
-
+                //alert(chordlistArray);
                 var chordNameCache = chordlistArray[i];
                 var chordLengthCache = clengthlistArray[i];
                 //alert("chordnamecache:" + i + ": " + chordNameCache);
@@ -1449,6 +1450,9 @@
         function test(){
             document.getElementById("test").addEventListener("click",displayBlockfunction);
         }
-        </script>
+    </script>
+
+
     </body>
+
 </html>

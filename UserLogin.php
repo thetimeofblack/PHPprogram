@@ -20,3 +20,8 @@ include "DBConnection.php";
     echo json_encode($returnArray);
     $dbobject->closeDataBase() ;
 ?>
+
+<script>
+
+
+</script>
