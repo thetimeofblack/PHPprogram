@@ -759,7 +759,7 @@
             </td>
         </tr>
     </table>
-    <!-- <button id="test" onclick="test()">test</button> -->
+    <button id="test" onclick="test()">test</button>
     <footer>
 		<p>Copyright® 2019 He,Yining Zhou,Kaiwen and Shan,Jiaxiang</p>
 	</footer>
@@ -949,8 +949,40 @@
         }
 
        var displayBlockfunction =  function displayBlock(){
-           //firstly
+            //firstly clear all fields
+            for(i=1;i<document.getElementById("melrow1").length;i++){
+                document.getElementById("melrow1").deleteCell(i);
+            }
+            for(i=1;i<document.getElementById("melrow2").length;i++){
+                document.getElementById("melrow2").deleteCell(i);
+            }
+            for(i=1;i<document.getElementById("melrow3").length;i++){
+                document.getElementById("melrow3").deleteCell(i);
+            }
+            for(i=1;i<document.getElementById("melrow4").length;i++){
+                document.getElementById("melrow4").deleteCell(i);
+            }
+            for(i=1;i<document.getElementById("chorow1").length;i++){
+                document.getElementById("chorow1").deleteCell(i);
+            }
+            for(i=1;i<document.getElementById("chorow2").length;i++){
+                document.getElementById("chorow2").deleteCell(i);
+            }
+            for(i=1;i<document.getElementById("chorow3").length;i++){
+                document.getElementById("chorow3").deleteCell(i);
+            }
+            for(i=1;i<document.getElementById("melrow4").length;i++){
+                document.getElementById("chorow4").deleteCell(i);
+            }
+
+            Str = "4d 54 68 64 00 00 00 06 00 02 00 03 00 78 4d 54 72 6b 00 00 00 17 00 ff 03 00 00 ff 51 03 07 a1 20 00 ff 58 04 04 02 18 08 00 ff 2f 00 ";
+            melHead = "4d 54 72 6b ";
+            choHead = "4d 54 72 6b ";
+            melStr = "00 ff 03 00 "; 
+            choStr = "00 ff 03 00 ";
+            endStr = "00 ff 2f 00 "
             
+            //create new
             var blockColorCache;
 
             /* var seqnumber  = this.innerHTML.substring(10);
@@ -982,6 +1014,7 @@
             var length3 = clengthlistArray.length;    //length of array
             var length4 = chordlistArray.length;
 
+            //melody display
             for(var i=0;i<length1;i++){
                 //delete'"'&'"'
                 notelistArray[i] = notelistArray[i].slice(1);
@@ -991,8 +1024,8 @@
 
                 var noteNameCache = notelistArray[i];
                 var noteLengthCache = nlengthlistArray[i];
-                alert("notenamecache:" + i + ": " + noteNameCache);
-                alert("noteLengthCache:" + i + ": " + noteLengthCache);
+                //alert("notenamecache:" + i + ": " + noteNameCache);
+                //alert("noteLengthCache:" + i + ": " + noteLengthCache);
                 
                 switch (noteNameCache.substr(0,1)){
                     case "C":
@@ -1058,8 +1091,135 @@
                 td4.colSpan = parseInt(noteLengthCache);
                 td4.innerHTML = "<button onclick='deleteNote(this)'>delete</button>"; 
                 
-            } 
+                //generate string to be played
+                switch (noteNameCache.substr(0,1)){
+                    case "C":
+                        if (noteNameCache.substr(1,1)=="#"){
+                            noteNumber = 1;
+                        }else{
+                            noteNumber = 0;
+                        }
+                        break;
+                    case "D":
+                        if (noteNameCache.substr(1,1)=="#"){
+                            noteNumber = 3;
+                        }else{
+                            noteNumber = 2;
+                        }
+                        break;
+                    case "E":
+                        noteNumber = 4;
+                        break;
+                    case "F":
+                        if (noteNameCache.substr(1,1)=="#"){
+                            noteNumber = 6;
+                        }else{
+                            noteNumber = 5;
+                        }
+                        break;
+                    case "G":
+                        if (noteNameCache.substr(1,1)=="#"){
+                            noteNumber = 8;
+                        }else{
+                            noteNumber = 7;
+                        }
+                        break;
+                    case "A":
+                        if (noteNameCache.substr(1,1)=="#"){
+                            noteNumber = 10;
+                        }else{
+                            noteNumber = 9;
+                        }
+                        break;
+                    case "B":
+                        noteNumber = 11;
+                        break;
+                }
+                
+                //initial temporary variable
+                var nnCache = noteNameCache.substr(1,noteNameCache.length-1);
+                if (nnCache.substr(0,1)=="#"){
+                    nnCache = nnCache.substr(1,nnCache.length-1);
+                }
 
+                switch (nnCache){
+                    case "-2":
+                        noteNumber += 0;
+                        break;
+                    case "-1":
+                        noteNumber += 12;
+                        break;
+                    case "0":
+                        noteNumber += 24;
+                        break;
+                    case "1":
+                        noteNumber += 36;
+                        break;
+                    case "2":
+                        noteNumber += 48;
+                        break;
+                    case "3":
+                        noteNumber += 60;
+                        break;
+                    case "4":
+                        noteNumber += 72;
+                        break;
+                    case "5":
+                        noteNumber += 84;
+                        break;
+                    case "6":
+                        noteNumber += 96;
+                        break;
+                    case "7":
+                        noteNumber += 108;
+                        break;
+                }
+                //alert(noteNumber);
+                //alert(noteNumber.toString(16));
+                
+                //transform to HEX
+                melStr = melStr + "00 90 " + noteNumber.toString(16) + " ";
+                
+                //add velocity
+                melStr = melStr + "64 ";
+
+                //add time length
+                noteTime = noteLengthCache * 60;
+                //alert(noteTime);
+                switch (noteTime){
+                    case 60:
+                        melStr = melStr + noteTime.toString(16) + " ";
+                        break;
+                    case 120:
+                        melStr = melStr + noteTime.toString(16) + " ";
+                        break;
+                    case 180:
+                        melStr = melStr + "81 34 ";
+                        break;
+                    case 240:
+                        melStr = melStr + "81 70 ";
+                        break;
+                    case 300:
+                        melStr = melStr + "82 2C ";
+                        break;
+                    case 360:
+                        melStr = melStr + "82 68 ";
+                        break;
+                    case 420:
+                        melStr = melStr + "83 24 ";
+                        break;
+                    case 480:
+                        melStr = melStr + "83 60 ";
+                        break;   
+                }
+            
+            //release
+            melStr = melStr + "80 " + noteNumber.toString(16) + " " + "64 ";
+            //alert("melStr: " + melStr);
+        
+        } 
+
+            //chord display
             for(var i=0;i<length1;i++){
                 //delete'"'&'"'
                 chordlistArray[i] = chordlistArray[i].slice(1);
@@ -1069,8 +1229,8 @@
 
                 var chordNameCache = chordlistArray[i];
                 var chordLengthCache = clengthlistArray[i];
-                alert("chordnamecache:" + i + ": " + chordNameCache);
-                alert("chordLengthCache:" + i + ": " + chordLengthCache);
+                //alert("chordnamecache:" + i + ": " + chordNameCache);
+                //alert("chordLengthCache:" + i + ": " + chordLengthCache);
                 
                 switch (chordNameCache.substr(0,1)){
                     case "C":
@@ -1134,12 +1294,163 @@
 
                 var td8 = document.getElementById("chorow4").insertCell();
                 td8.colSpan = parseInt(chordLengthCache);
-                td8.innerHTML = "<button onclick='deleteChord(this)'>delete</button>"; 
+                td8.innerHTML = "<button onclick='deleteChord(this)'>delete</button>";
+                
+                //generate string to be played
+                switch (chordNameCache.substr(0,1)){
+                    case "C":
+                        if (chordNameCache.substr(1,1)=="#"){
+                            chordNumber = 1;
+                        }else{
+                            chordNumber = 0;
+                        }
+                        break;
+                    case "D":
+                        if (chordNameCache.substr(1,1)=="#"){
+                            chordNumber = 3;
+                        }else{
+                            chordNumber = 2;
+                        }
+                        break;
+                    case "E":
+                        chordNumber = 4;
+                        break;
+                    case "F":
+                        if (chordNameCache.substr(1,1)=="#"){
+                            chordNumber = 6;
+                        }else{
+                            chordNumber = 5;
+                        }
+                        break;
+                    case "G":
+                        if (chordNameCache.substr(1,1)=="#"){
+                            chordNumber = 8;
+                        }else{
+                            chordNumber = 7;
+                        }
+                        break;
+                    case "A":
+                        if (chordNameCache.substr(1,1)=="#"){
+                            chordNumber = 10;
+                        }else{
+                            chordNumber = 9;
+                        }
+                        break;
+                    case "B":
+                        chordNumber = 11;
+                        break;
+                }
+                
+                var cnCache = chordNameCache.substr(1,chordNameCache.length-1);     //initial temporary variable
+                if (cnCache.substr(-1)=="m"){
+                    cnCache = cnCache.substr(0,cnCache.length-1);
+                    if (cnCache.substr(0,1)=="#"){
+                        cnCache = cnCache.substr(1,cnCache.length-1);
+                    }
+                }else{
+                    if (cnCache.substr(0,1)=="#"){
+                        cnCache = cnCache.substr(1,cnCache.length-1);
+                    }
+                }
+                switch (cnCache){
+                    case "-2":
+                        chordNumber += 0;
+                        break;
+                    case "-1":
+                        chordNumber += 12;
+                        break;
+                    case "0":
+                        chordNumber += 24;
+                        break;
+                    case "1":
+                        chordNumber += 36;
+                        break;
+                    case "2":
+                        chordNumber += 48;
+                        break;
+                    case "3":
+                        chordNumber += 60;
+                        break;
+                    case "4":
+                        chordNumber += 72;
+                        break;
+                    case "5":
+                        chordNumber += 84;
+                        break;
+                    case "6":
+                        chordNumber += 96;
+                        break;
+                    case "7":
+                        chordNumber += 108;
+                        break;
+                }
+
+                //transform to HEX
+                if (chordNameCache.substr(-1)!="m"){
+                    choStr = choStr + "00 90 " + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber += 4;
+                    choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber += 3;
+                    choStr = choStr + chordNumber.toString(16) + " 64 ";
+                }else if (chordNameCache.substr(-1)!="m"){
+                    choStr = choStr + "00 90 " + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber += 3;
+                    choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber += 4;
+                    choStr = choStr + chordNumber.toString(16) + " 64 ";
+                }
+                
+                //add time
+                chordTime = chordLengthCache * 60;
+                //alert(chordTime);
+                switch (chordTime){
+                    case 60:
+                        choStr = choStr + chordTime.toString(16) + " ";
+                        break;
+                    case 120:
+                        choStr = choStr + chordTime.toString(16) + " ";
+                        break;
+                    case 180:
+                        choStr = choStr + "81 34 ";
+                        break;
+                    case 240:
+                        choStr = choStr + "81 70 ";
+                        break;
+                    case 300:
+                        choStr = choStr + "82 2C ";
+                        break;
+                    case 360:
+                        choStr = choStr + "82 68 ";
+                        break;
+                    case 420:
+                        choStr = choStr + "83 24 ";
+                        break;
+                    case 480:
+                        choStr = choStr + "83 60 ";
+                        break;   
+                }
+
+                //release
+                if (chordNameCache.substr(-1)!="m"){
+                    choStr = choStr + "80 " + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber -= 3;
+                    choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber -= 4;
+                    choStr = choStr + chordNumber.toString(16) + " 64 ";
+                }else if (chordNameCache.substr(-1)=="m"){
+                    choStr = choStr + "00 90 " + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber -= 4;
+                    choStr = choStr + chordNumber.toString(16) + " 64 00 ";
+                    chordNumber -= 3;
+                    choStr = choStr + chordNumber.toString(16) + " 64 ";
+                }
+
+                //alert("choStr: " + choStr);
             } 
         }
         
         function test(){
-            this.addEventListener("click",displayBlockfunction);
+            document.getElementById("test").addEventListener("click",displayBlockfunction);
         }
         </script>
     </body>
