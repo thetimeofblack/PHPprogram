@@ -563,6 +563,14 @@
 			font-family:Bahnschrift;
 			font-size:18px;
         }
+
+        .midibutton{
+            background-color: white;
+            width:80px;
+            height:50px;
+            font-family:Bahnschrift;
+            font-size:18px;
+        }
     </style>
 </head>
 
@@ -622,6 +630,7 @@
                                         <option value="7">7</option>
                                     </select>
                                     <p id="hint">please select the length</p>
+                                    <p id="hint">(only 1-8 is valid)</p>
                                     <input type="text" size="1" maxlength="1" id="noteLength" name="noteLength"/>
                                 </td>
                             </tr>
@@ -668,7 +677,8 @@
                                         <option value="6">6</option>
                                         <option value="7">7</option>
                                     </select>
-									<p id="hint">please select the length</p>
+                                    <p id="hint">please select the length</p>
+                                    <p id="hint">(only 1-8 is valid)</p>
                                     <input type="text" size="1" maxlength="1" id="chordLength" name="chordLength"/>
                                 </td>
                             </tr>
@@ -721,10 +731,12 @@
                 </div>
                 <br><br>
                 <div>
-                    <button name="play" onclick="play()">play</button>
-                    <button name="pause" onclick="pause()">pause</button>
-                    <button name="stop" onclick="stop()">stop</button>
-                    <button name="load" onclick="loadAndPlay()">load</button>
+                    <span id="hint">Please click "stop" first, then "load" and click "play" at last</span><br>
+                    <span id="hint">If click "play" has no reaction, please click it again</span><br>
+                    <button class="midibutton" name="play" onclick="play()">play</button>
+                    <button class="midibutton" name="pause" onclick="pause()">pause</button>
+                    <button class="midibutton" name="stop" onclick="stop()">stop</button>
+                    <button class="midibutton" name="load" onclick="loadAndPlay()">load</button>
                     <form action="save.php" method="POST" onsubmit="sendData(this);return false;">
                         <input id="scorename" name ="scorename" type="text"  style="display: none;"/>
                         <input id="scoredescription" name ="scoredescription" type="text"  style="display: none;"/>
@@ -735,7 +747,7 @@
                         <input id="timelist"   name ="timelist"    type="text"   style= "display: none;"/>
                         <input id="notelist"   name ="notelist"    type="text"   style= "display: none;"/>
                         <input id="userid"     name = "userid"     type ="text"  style ="display:none;"/>
-                        <input name="save" value="save" type="submit" style="margin-left:20%;"/>
+                        <input class="midibutton" name="save" value="save" type="submit"/>
                     </form>
 
                 </div>
