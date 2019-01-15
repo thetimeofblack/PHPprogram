@@ -765,8 +765,8 @@
         var notelist = new Array();
         var nlengthlist = new Array() ;
         var name;
-        var chordlist;
-        var clengthlist;
+        var chordlist = new Array();
+        var clengthlist = new Array();
 
         function sendData(o) {
             var notelist   =  new Array();
@@ -827,7 +827,7 @@
             var melodydescriptioninput = document.getElementById("melodydescription");
             var scorenameinput = document.getElementById("scorename");
             var scoredescriptioninput = document.getElementById("scoredescription");
-             melodynameinput.value = melodynameinput.innerHTML;
+             melodynameinput.value = "MelodyName";
              melodydescriptioninput.value = melodydescriptioninput.innerHTML ;
              scorenameinput.value = "ScoreName" ;
              scoredescriptioninput.value = "ScoreDescription";
@@ -926,8 +926,8 @@
                             keys[start++] = j;
                         }
 
-                        chordlist = chordobject[keys[2]];
-                        clengthlist = chordobject[keys[3]];
+                        chordlist[i] = chordobject[keys[2]];
+                        clengthlist[i] = chordobject[keys[3]];
                         //alert(clengthlist);
                         //alert(clengthlist);
                         //alert("chord list: " + chordlist);
@@ -986,11 +986,16 @@
             var blockColorCache;
 
             var seqnumber  = this.innerHTML.substring(10);
+            //alert(seqnumber);
+           seqnumber = parseInt(seqnumber);
+           //alert(seqnumber);
+           //alert(nlengthlist[0]);
             var nlengthlistlc = nlengthlist[seqnumber];   // nlengthlistlc is a string
             var notelistlc = notelist[seqnumber];
-            var clengthlistlc = clengthlist;     // clengthlistlc is a string
-            var chordlistlc = chordlist;
-            //alert(chordlist);
+           var clengthlistlc = clengthlist[seqnumber];     // clengthlistlc is a string
+           var chordlistlc = chordlist[seqnumber];
+           //alert(chordlist);
+           //alert(notelist[0]);
             //alert(clengthlist);
            /*  //test sentence
             var notelistlc = "['A#4','C4','C#4','E4']";
